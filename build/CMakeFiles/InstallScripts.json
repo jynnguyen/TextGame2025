@@ -1,7 +1,7 @@
 {
 	"InstallScripts" : 
 	[
-		"D:/.TextGame/build/cmake_install.cmake"
+		"D:/.TextGame/TextGame/build/cmake_install.cmake"
 	],
 	"Parallel" : false
 }

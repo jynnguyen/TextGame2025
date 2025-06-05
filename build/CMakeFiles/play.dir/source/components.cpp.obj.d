@@ -1,5 +1,6 @@
 CMakeFiles/play.dir/source/components.cpp.obj: \
- D:\.TextGame\source\components.cpp D:/.TextGame/include/Components.hpp \
+ D:\.TextGame\TextGame\source\components.cpp \
+ D:/.TextGame/TextGame/include/Components.hpp \
  C:/msys64/ucrt64/include/c++/14.2.0/cmath \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/requires_hosted.h \
  C:/msys64/ucrt64/include/c++/14.2.0/x86_64-w64-mingw32/bits/c++config.h \

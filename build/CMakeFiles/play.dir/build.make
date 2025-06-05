@@ -52,10 +52,10 @@ RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\.TextGame
+CMAKE_SOURCE_DIR = D:\.TextGame\TextGame
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\.TextGame\build
+CMAKE_BINARY_DIR = D:\.TextGame\TextGame\build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/play.dir/depend.make
@@ -73,183 +73,183 @@ CMakeFiles/play.dir/codegen:
 
 CMakeFiles/play.dir/source/Functions.cpp.obj: CMakeFiles/play.dir/flags.make
 CMakeFiles/play.dir/source/Functions.cpp.obj: CMakeFiles/play.dir/includes_CXX.rsp
-CMakeFiles/play.dir/source/Functions.cpp.obj: D:/.TextGame/source/Functions.cpp
+CMakeFiles/play.dir/source/Functions.cpp.obj: D:/.TextGame/TextGame/source/Functions.cpp
 CMakeFiles/play.dir/source/Functions.cpp.obj: CMakeFiles/play.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/play.dir/source/Functions.cpp.obj"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/Functions.cpp.obj -MF CMakeFiles\play.dir\source\Functions.cpp.obj.d -o CMakeFiles\play.dir\source\Functions.cpp.obj -c D:\.TextGame\source\Functions.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/play.dir/source/Functions.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/Functions.cpp.obj -MF CMakeFiles\play.dir\source\Functions.cpp.obj.d -o CMakeFiles\play.dir\source\Functions.cpp.obj -c D:\.TextGame\TextGame\source\Functions.cpp
 
 CMakeFiles/play.dir/source/Functions.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/play.dir/source/Functions.cpp.i"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\source\Functions.cpp > CMakeFiles\play.dir\source\Functions.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\TextGame\source\Functions.cpp > CMakeFiles\play.dir\source\Functions.cpp.i
 
 CMakeFiles/play.dir/source/Functions.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/play.dir/source/Functions.cpp.s"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\source\Functions.cpp -o CMakeFiles\play.dir\source\Functions.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\TextGame\source\Functions.cpp -o CMakeFiles\play.dir\source\Functions.cpp.s
 
 CMakeFiles/play.dir/source/components.cpp.obj: CMakeFiles/play.dir/flags.make
 CMakeFiles/play.dir/source/components.cpp.obj: CMakeFiles/play.dir/includes_CXX.rsp
-CMakeFiles/play.dir/source/components.cpp.obj: D:/.TextGame/source/components.cpp
+CMakeFiles/play.dir/source/components.cpp.obj: D:/.TextGame/TextGame/source/components.cpp
 CMakeFiles/play.dir/source/components.cpp.obj: CMakeFiles/play.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/play.dir/source/components.cpp.obj"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/components.cpp.obj -MF CMakeFiles\play.dir\source\components.cpp.obj.d -o CMakeFiles\play.dir\source\components.cpp.obj -c D:\.TextGame\source\components.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/play.dir/source/components.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/components.cpp.obj -MF CMakeFiles\play.dir\source\components.cpp.obj.d -o CMakeFiles\play.dir\source\components.cpp.obj -c D:\.TextGame\TextGame\source\components.cpp
 
 CMakeFiles/play.dir/source/components.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/play.dir/source/components.cpp.i"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\source\components.cpp > CMakeFiles\play.dir\source\components.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\TextGame\source\components.cpp > CMakeFiles\play.dir\source\components.cpp.i
 
 CMakeFiles/play.dir/source/components.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/play.dir/source/components.cpp.s"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\source\components.cpp -o CMakeFiles\play.dir\source\components.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\TextGame\source\components.cpp -o CMakeFiles\play.dir\source\components.cpp.s
 
 CMakeFiles/play.dir/source/configuration.cpp.obj: CMakeFiles/play.dir/flags.make
 CMakeFiles/play.dir/source/configuration.cpp.obj: CMakeFiles/play.dir/includes_CXX.rsp
-CMakeFiles/play.dir/source/configuration.cpp.obj: D:/.TextGame/source/configuration.cpp
+CMakeFiles/play.dir/source/configuration.cpp.obj: D:/.TextGame/TextGame/source/configuration.cpp
 CMakeFiles/play.dir/source/configuration.cpp.obj: CMakeFiles/play.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/play.dir/source/configuration.cpp.obj"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/configuration.cpp.obj -MF CMakeFiles\play.dir\source\configuration.cpp.obj.d -o CMakeFiles\play.dir\source\configuration.cpp.obj -c D:\.TextGame\source\configuration.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/play.dir/source/configuration.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/configuration.cpp.obj -MF CMakeFiles\play.dir\source\configuration.cpp.obj.d -o CMakeFiles\play.dir\source\configuration.cpp.obj -c D:\.TextGame\TextGame\source\configuration.cpp
 
 CMakeFiles/play.dir/source/configuration.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/play.dir/source/configuration.cpp.i"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\source\configuration.cpp > CMakeFiles\play.dir\source\configuration.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\TextGame\source\configuration.cpp > CMakeFiles\play.dir\source\configuration.cpp.i
 
 CMakeFiles/play.dir/source/configuration.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/play.dir/source/configuration.cpp.s"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\source\configuration.cpp -o CMakeFiles\play.dir\source\configuration.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\TextGame\source\configuration.cpp -o CMakeFiles\play.dir\source\configuration.cpp.s
 
 CMakeFiles/play.dir/source/gacha.cpp.obj: CMakeFiles/play.dir/flags.make
 CMakeFiles/play.dir/source/gacha.cpp.obj: CMakeFiles/play.dir/includes_CXX.rsp
-CMakeFiles/play.dir/source/gacha.cpp.obj: D:/.TextGame/source/gacha.cpp
+CMakeFiles/play.dir/source/gacha.cpp.obj: D:/.TextGame/TextGame/source/gacha.cpp
 CMakeFiles/play.dir/source/gacha.cpp.obj: CMakeFiles/play.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/play.dir/source/gacha.cpp.obj"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/gacha.cpp.obj -MF CMakeFiles\play.dir\source\gacha.cpp.obj.d -o CMakeFiles\play.dir\source\gacha.cpp.obj -c D:\.TextGame\source\gacha.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/play.dir/source/gacha.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/gacha.cpp.obj -MF CMakeFiles\play.dir\source\gacha.cpp.obj.d -o CMakeFiles\play.dir\source\gacha.cpp.obj -c D:\.TextGame\TextGame\source\gacha.cpp
 
 CMakeFiles/play.dir/source/gacha.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/play.dir/source/gacha.cpp.i"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\source\gacha.cpp > CMakeFiles\play.dir\source\gacha.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\TextGame\source\gacha.cpp > CMakeFiles\play.dir\source\gacha.cpp.i
 
 CMakeFiles/play.dir/source/gacha.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/play.dir/source/gacha.cpp.s"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\source\gacha.cpp -o CMakeFiles\play.dir\source\gacha.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\TextGame\source\gacha.cpp -o CMakeFiles\play.dir\source\gacha.cpp.s
 
 CMakeFiles/play.dir/source/game.cpp.obj: CMakeFiles/play.dir/flags.make
 CMakeFiles/play.dir/source/game.cpp.obj: CMakeFiles/play.dir/includes_CXX.rsp
-CMakeFiles/play.dir/source/game.cpp.obj: D:/.TextGame/source/game.cpp
+CMakeFiles/play.dir/source/game.cpp.obj: D:/.TextGame/TextGame/source/game.cpp
 CMakeFiles/play.dir/source/game.cpp.obj: CMakeFiles/play.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/play.dir/source/game.cpp.obj"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/game.cpp.obj -MF CMakeFiles\play.dir\source\game.cpp.obj.d -o CMakeFiles\play.dir\source\game.cpp.obj -c D:\.TextGame\source\game.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/play.dir/source/game.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/game.cpp.obj -MF CMakeFiles\play.dir\source\game.cpp.obj.d -o CMakeFiles\play.dir\source\game.cpp.obj -c D:\.TextGame\TextGame\source\game.cpp
 
 CMakeFiles/play.dir/source/game.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/play.dir/source/game.cpp.i"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\source\game.cpp > CMakeFiles\play.dir\source\game.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\TextGame\source\game.cpp > CMakeFiles\play.dir\source\game.cpp.i
 
 CMakeFiles/play.dir/source/game.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/play.dir/source/game.cpp.s"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\source\game.cpp -o CMakeFiles\play.dir\source\game.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\TextGame\source\game.cpp -o CMakeFiles\play.dir\source\game.cpp.s
 
 CMakeFiles/play.dir/source/gameData.cpp.obj: CMakeFiles/play.dir/flags.make
 CMakeFiles/play.dir/source/gameData.cpp.obj: CMakeFiles/play.dir/includes_CXX.rsp
-CMakeFiles/play.dir/source/gameData.cpp.obj: D:/.TextGame/source/gameData.cpp
+CMakeFiles/play.dir/source/gameData.cpp.obj: D:/.TextGame/TextGame/source/gameData.cpp
 CMakeFiles/play.dir/source/gameData.cpp.obj: CMakeFiles/play.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/play.dir/source/gameData.cpp.obj"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/gameData.cpp.obj -MF CMakeFiles\play.dir\source\gameData.cpp.obj.d -o CMakeFiles\play.dir\source\gameData.cpp.obj -c D:\.TextGame\source\gameData.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/play.dir/source/gameData.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/gameData.cpp.obj -MF CMakeFiles\play.dir\source\gameData.cpp.obj.d -o CMakeFiles\play.dir\source\gameData.cpp.obj -c D:\.TextGame\TextGame\source\gameData.cpp
 
 CMakeFiles/play.dir/source/gameData.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/play.dir/source/gameData.cpp.i"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\source\gameData.cpp > CMakeFiles\play.dir\source\gameData.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\TextGame\source\gameData.cpp > CMakeFiles\play.dir\source\gameData.cpp.i
 
 CMakeFiles/play.dir/source/gameData.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/play.dir/source/gameData.cpp.s"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\source\gameData.cpp -o CMakeFiles\play.dir\source\gameData.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\TextGame\source\gameData.cpp -o CMakeFiles\play.dir\source\gameData.cpp.s
 
 CMakeFiles/play.dir/source/guardian.cpp.obj: CMakeFiles/play.dir/flags.make
 CMakeFiles/play.dir/source/guardian.cpp.obj: CMakeFiles/play.dir/includes_CXX.rsp
-CMakeFiles/play.dir/source/guardian.cpp.obj: D:/.TextGame/source/guardian.cpp
+CMakeFiles/play.dir/source/guardian.cpp.obj: D:/.TextGame/TextGame/source/guardian.cpp
 CMakeFiles/play.dir/source/guardian.cpp.obj: CMakeFiles/play.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/play.dir/source/guardian.cpp.obj"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/guardian.cpp.obj -MF CMakeFiles\play.dir\source\guardian.cpp.obj.d -o CMakeFiles\play.dir\source\guardian.cpp.obj -c D:\.TextGame\source\guardian.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/play.dir/source/guardian.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/guardian.cpp.obj -MF CMakeFiles\play.dir\source\guardian.cpp.obj.d -o CMakeFiles\play.dir\source\guardian.cpp.obj -c D:\.TextGame\TextGame\source\guardian.cpp
 
 CMakeFiles/play.dir/source/guardian.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/play.dir/source/guardian.cpp.i"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\source\guardian.cpp > CMakeFiles\play.dir\source\guardian.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\TextGame\source\guardian.cpp > CMakeFiles\play.dir\source\guardian.cpp.i
 
 CMakeFiles/play.dir/source/guardian.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/play.dir/source/guardian.cpp.s"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\source\guardian.cpp -o CMakeFiles\play.dir\source\guardian.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\TextGame\source\guardian.cpp -o CMakeFiles\play.dir\source\guardian.cpp.s
 
 CMakeFiles/play.dir/source/level.cpp.obj: CMakeFiles/play.dir/flags.make
 CMakeFiles/play.dir/source/level.cpp.obj: CMakeFiles/play.dir/includes_CXX.rsp
-CMakeFiles/play.dir/source/level.cpp.obj: D:/.TextGame/source/level.cpp
+CMakeFiles/play.dir/source/level.cpp.obj: D:/.TextGame/TextGame/source/level.cpp
 CMakeFiles/play.dir/source/level.cpp.obj: CMakeFiles/play.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/play.dir/source/level.cpp.obj"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/level.cpp.obj -MF CMakeFiles\play.dir\source\level.cpp.obj.d -o CMakeFiles\play.dir\source\level.cpp.obj -c D:\.TextGame\source\level.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/play.dir/source/level.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/level.cpp.obj -MF CMakeFiles\play.dir\source\level.cpp.obj.d -o CMakeFiles\play.dir\source\level.cpp.obj -c D:\.TextGame\TextGame\source\level.cpp
 
 CMakeFiles/play.dir/source/level.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/play.dir/source/level.cpp.i"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\source\level.cpp > CMakeFiles\play.dir\source\level.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\TextGame\source\level.cpp > CMakeFiles\play.dir\source\level.cpp.i
 
 CMakeFiles/play.dir/source/level.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/play.dir/source/level.cpp.s"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\source\level.cpp -o CMakeFiles\play.dir\source\level.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\TextGame\source\level.cpp -o CMakeFiles\play.dir\source\level.cpp.s
 
 CMakeFiles/play.dir/source/main.cpp.obj: CMakeFiles/play.dir/flags.make
 CMakeFiles/play.dir/source/main.cpp.obj: CMakeFiles/play.dir/includes_CXX.rsp
-CMakeFiles/play.dir/source/main.cpp.obj: D:/.TextGame/source/main.cpp
+CMakeFiles/play.dir/source/main.cpp.obj: D:/.TextGame/TextGame/source/main.cpp
 CMakeFiles/play.dir/source/main.cpp.obj: CMakeFiles/play.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/play.dir/source/main.cpp.obj"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/main.cpp.obj -MF CMakeFiles\play.dir\source\main.cpp.obj.d -o CMakeFiles\play.dir\source\main.cpp.obj -c D:\.TextGame\source\main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/play.dir/source/main.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/main.cpp.obj -MF CMakeFiles\play.dir\source\main.cpp.obj.d -o CMakeFiles\play.dir\source\main.cpp.obj -c D:\.TextGame\TextGame\source\main.cpp
 
 CMakeFiles/play.dir/source/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/play.dir/source/main.cpp.i"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\source\main.cpp > CMakeFiles\play.dir\source\main.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\TextGame\source\main.cpp > CMakeFiles\play.dir\source\main.cpp.i
 
 CMakeFiles/play.dir/source/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/play.dir/source/main.cpp.s"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\source\main.cpp -o CMakeFiles\play.dir\source\main.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\TextGame\source\main.cpp -o CMakeFiles\play.dir\source\main.cpp.s
 
 CMakeFiles/play.dir/source/orb.cpp.obj: CMakeFiles/play.dir/flags.make
 CMakeFiles/play.dir/source/orb.cpp.obj: CMakeFiles/play.dir/includes_CXX.rsp
-CMakeFiles/play.dir/source/orb.cpp.obj: D:/.TextGame/source/orb.cpp
+CMakeFiles/play.dir/source/orb.cpp.obj: D:/.TextGame/TextGame/source/orb.cpp
 CMakeFiles/play.dir/source/orb.cpp.obj: CMakeFiles/play.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/play.dir/source/orb.cpp.obj"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/orb.cpp.obj -MF CMakeFiles\play.dir\source\orb.cpp.obj.d -o CMakeFiles\play.dir\source\orb.cpp.obj -c D:\.TextGame\source\orb.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/play.dir/source/orb.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/orb.cpp.obj -MF CMakeFiles\play.dir\source\orb.cpp.obj.d -o CMakeFiles\play.dir\source\orb.cpp.obj -c D:\.TextGame\TextGame\source\orb.cpp
 
 CMakeFiles/play.dir/source/orb.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/play.dir/source/orb.cpp.i"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\source\orb.cpp > CMakeFiles\play.dir\source\orb.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\TextGame\source\orb.cpp > CMakeFiles\play.dir\source\orb.cpp.i
 
 CMakeFiles/play.dir/source/orb.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/play.dir/source/orb.cpp.s"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\source\orb.cpp -o CMakeFiles\play.dir\source\orb.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\TextGame\source\orb.cpp -o CMakeFiles\play.dir\source\orb.cpp.s
 
 CMakeFiles/play.dir/source/raid.cpp.obj: CMakeFiles/play.dir/flags.make
 CMakeFiles/play.dir/source/raid.cpp.obj: CMakeFiles/play.dir/includes_CXX.rsp
-CMakeFiles/play.dir/source/raid.cpp.obj: D:/.TextGame/source/raid.cpp
+CMakeFiles/play.dir/source/raid.cpp.obj: D:/.TextGame/TextGame/source/raid.cpp
 CMakeFiles/play.dir/source/raid.cpp.obj: CMakeFiles/play.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/play.dir/source/raid.cpp.obj"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/raid.cpp.obj -MF CMakeFiles\play.dir\source\raid.cpp.obj.d -o CMakeFiles\play.dir\source\raid.cpp.obj -c D:\.TextGame\source\raid.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/play.dir/source/raid.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/raid.cpp.obj -MF CMakeFiles\play.dir\source\raid.cpp.obj.d -o CMakeFiles\play.dir\source\raid.cpp.obj -c D:\.TextGame\TextGame\source\raid.cpp
 
 CMakeFiles/play.dir/source/raid.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/play.dir/source/raid.cpp.i"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\source\raid.cpp > CMakeFiles\play.dir\source\raid.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\TextGame\source\raid.cpp > CMakeFiles\play.dir\source\raid.cpp.i
 
 CMakeFiles/play.dir/source/raid.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/play.dir/source/raid.cpp.s"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\source\raid.cpp -o CMakeFiles\play.dir\source\raid.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\TextGame\source\raid.cpp -o CMakeFiles\play.dir\source\raid.cpp.s
 
 CMakeFiles/play.dir/source/unit.cpp.obj: CMakeFiles/play.dir/flags.make
 CMakeFiles/play.dir/source/unit.cpp.obj: CMakeFiles/play.dir/includes_CXX.rsp
-CMakeFiles/play.dir/source/unit.cpp.obj: D:/.TextGame/source/unit.cpp
+CMakeFiles/play.dir/source/unit.cpp.obj: D:/.TextGame/TextGame/source/unit.cpp
 CMakeFiles/play.dir/source/unit.cpp.obj: CMakeFiles/play.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/play.dir/source/unit.cpp.obj"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/unit.cpp.obj -MF CMakeFiles\play.dir\source\unit.cpp.obj.d -o CMakeFiles\play.dir\source\unit.cpp.obj -c D:\.TextGame\source\unit.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\.TextGame\TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/play.dir/source/unit.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/play.dir/source/unit.cpp.obj -MF CMakeFiles\play.dir\source\unit.cpp.obj.d -o CMakeFiles\play.dir\source\unit.cpp.obj -c D:\.TextGame\TextGame\source\unit.cpp
 
 CMakeFiles/play.dir/source/unit.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/play.dir/source/unit.cpp.i"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\source\unit.cpp > CMakeFiles\play.dir\source\unit.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\.TextGame\TextGame\source\unit.cpp > CMakeFiles\play.dir\source\unit.cpp.i
 
 CMakeFiles/play.dir/source/unit.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/play.dir/source/unit.cpp.s"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\source\unit.cpp -o CMakeFiles\play.dir\source\unit.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\.TextGame\TextGame\source\unit.cpp -o CMakeFiles\play.dir\source\unit.cpp.s
 
 # Object files for target play
 play_OBJECTS = \
@@ -285,7 +285,7 @@ play.exe: CMakeFiles/play.dir/build.make
 play.exe: CMakeFiles/play.dir/linkLibs.rsp
 play.exe: CMakeFiles/play.dir/objects1.rsp
 play.exe: CMakeFiles/play.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\.TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable play.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\.TextGame\TextGame\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable play.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\play.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -297,6 +297,6 @@ CMakeFiles/play.dir/clean:
 .PHONY : CMakeFiles/play.dir/clean
 
 CMakeFiles/play.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" D:\.TextGame D:\.TextGame D:\.TextGame\build D:\.TextGame\build D:\.TextGame\build\CMakeFiles\play.dir\DependInfo.cmake "--color=$(COLOR)"
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" D:\.TextGame\TextGame D:\.TextGame\TextGame D:\.TextGame\TextGame\build D:\.TextGame\TextGame\build D:\.TextGame\TextGame\build\CMakeFiles\play.dir\DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/play.dir/depend
 

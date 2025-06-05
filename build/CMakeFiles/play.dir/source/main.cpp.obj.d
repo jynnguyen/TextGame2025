@@ -1,4 +1,5 @@
-CMakeFiles/play.dir/source/main.cpp.obj: D:\.TextGame\source\main.cpp \
+CMakeFiles/play.dir/source/main.cpp.obj: \
+ D:\.TextGame\TextGame\source\main.cpp \
  C:/msys64/ucrt64/include/c++/14.2.0/iostream \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/requires_hosted.h \
  C:/msys64/ucrt64/include/c++/14.2.0/x86_64-w64-mingw32/bits/c++config.h \
@@ -135,8 +136,9 @@ CMakeFiles/play.dir/source/main.cpp.obj: D:\.TextGame\source\main.cpp \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/ostream.tcc \
  C:/msys64/ucrt64/include/c++/14.2.0/istream \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/istream.tcc \
- D:/.TextGame/include/Game.hpp D:/.TextGame/include/Unit.hpp \
- D:/.TextGame/include/Components.hpp \
+ D:/.TextGame/TextGame/include/Game.hpp \
+ D:/.TextGame/TextGame/include/Unit.hpp \
+ D:/.TextGame/TextGame/include/Components.hpp \
  C:/msys64/ucrt64/include/c++/14.2.0/cmath \
  C:/msys64/ucrt64/include/math.h \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/specfun.h \
@@ -153,7 +155,8 @@ CMakeFiles/play.dir/source/main.cpp.obj: D:\.TextGame\source\main.cpp \
  C:/msys64/ucrt64/include/c++/14.2.0/tr1/poly_hermite.tcc \
  C:/msys64/ucrt64/include/c++/14.2.0/tr1/poly_laguerre.tcc \
  C:/msys64/ucrt64/include/c++/14.2.0/tr1/riemann_zeta.tcc \
- D:/.TextGame/include/Orb.hpp D:/.TextGame/include/main.hpp \
+ D:/.TextGame/TextGame/include/Orb.hpp \
+ D:/.TextGame/TextGame/include/main.hpp \
  C:/msys64/ucrt64/include/c++/14.2.0/fstream \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/codecvt.h \
  C:/msys64/ucrt64/include/c++/14.2.0/x86_64-w64-mingw32/bits/basic_file.h \
@@ -212,7 +215,10 @@ CMakeFiles/play.dir/source/main.cpp.obj: D:\.TextGame\source\main.cpp \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_numeric.h \
  C:/msys64/ucrt64/include/c++/14.2.0/pstl/glue_numeric_defs.h \
  C:/msys64/ucrt64/include/c++/14.2.0/pstl/execution_defs.h \
- D:/.TextGame/include/Raid.hpp D:/.TextGame/include/Guardian.hpp \
- D:/.TextGame/include/Functions.hpp D:/.TextGame/include/Gacha.hpp \
- D:/.TextGame/include/GameData.hpp D:/.TextGame/include/Level.hpp \
- D:/.TextGame/include/Configuration.hpp
+ D:/.TextGame/TextGame/include/Raid.hpp \
+ D:/.TextGame/TextGame/include/Guardian.hpp \
+ D:/.TextGame/TextGame/include/Functions.hpp \
+ D:/.TextGame/TextGame/include/Gacha.hpp \
+ D:/.TextGame/TextGame/include/GameData.hpp \
+ D:/.TextGame/TextGame/include/Level.hpp \
+ D:/.TextGame/TextGame/include/Configuration.hpp

@@ -1,6 +1,7 @@
 CMakeFiles/play.dir/source/gameData.cpp.obj: \
- D:\.TextGame\source\gameData.cpp D:/.TextGame/include/GameData.hpp \
- D:/.TextGame/include/main.hpp \
+ D:\.TextGame\TextGame\source\gameData.cpp \
+ D:/.TextGame/TextGame/include/GameData.hpp \
+ D:/.TextGame/TextGame/include/main.hpp \
  C:/msys64/ucrt64/include/c++/14.2.0/iostream \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/requires_hosted.h \
  C:/msys64/ucrt64/include/c++/14.2.0/x86_64-w64-mingw32/bits/c++config.h \
@@ -211,7 +212,10 @@ CMakeFiles/play.dir/source/gameData.cpp.obj: \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_numeric.h \
  C:/msys64/ucrt64/include/c++/14.2.0/pstl/glue_numeric_defs.h \
  C:/msys64/ucrt64/include/c++/14.2.0/pstl/execution_defs.h \
- D:/.TextGame/include/Unit.hpp D:/.TextGame/include/Components.hpp \
- D:/.TextGame/include/Orb.hpp D:/.TextGame/include/Level.hpp \
- D:/.TextGame/include/Configuration.hpp D:/.TextGame/include/Guardian.hpp \
- D:/.TextGame/include/Functions.hpp
+ D:/.TextGame/TextGame/include/Unit.hpp \
+ D:/.TextGame/TextGame/include/Components.hpp \
+ D:/.TextGame/TextGame/include/Orb.hpp \
+ D:/.TextGame/TextGame/include/Level.hpp \
+ D:/.TextGame/TextGame/include/Configuration.hpp \
+ D:/.TextGame/TextGame/include/Guardian.hpp \
+ D:/.TextGame/TextGame/include/Functions.hpp

@@ -1,5 +1,7 @@
-CMakeFiles/play.dir/source/unit.cpp.obj: D:\.TextGame\source\unit.cpp \
- D:/.TextGame/include/Unit.hpp D:/.TextGame/include/Components.hpp \
+CMakeFiles/play.dir/source/unit.cpp.obj: \
+ D:\.TextGame\TextGame\source\unit.cpp \
+ D:/.TextGame/TextGame/include/Unit.hpp \
+ D:/.TextGame/TextGame/include/Components.hpp \
  C:/msys64/ucrt64/include/c++/14.2.0/cmath \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/requires_hosted.h \
  C:/msys64/ucrt64/include/c++/14.2.0/x86_64-w64-mingw32/bits/c++config.h \
@@ -155,7 +157,8 @@ CMakeFiles/play.dir/source/unit.cpp.obj: D:\.TextGame\source\unit.cpp \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/ostream.tcc \
  C:/msys64/ucrt64/include/c++/14.2.0/istream \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/istream.tcc \
- D:/.TextGame/include/Orb.hpp D:/.TextGame/include/main.hpp \
+ D:/.TextGame/TextGame/include/Orb.hpp \
+ D:/.TextGame/TextGame/include/main.hpp \
  C:/msys64/ucrt64/include/c++/14.2.0/fstream \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/codecvt.h \
  C:/msys64/ucrt64/include/c++/14.2.0/x86_64-w64-mingw32/bits/basic_file.h \
@@ -214,4 +217,4 @@ CMakeFiles/play.dir/source/unit.cpp.obj: D:\.TextGame\source\unit.cpp \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_numeric.h \
  C:/msys64/ucrt64/include/c++/14.2.0/pstl/glue_numeric_defs.h \
  C:/msys64/ucrt64/include/c++/14.2.0/pstl/execution_defs.h \
- D:/.TextGame/include/Functions.hpp
+ D:/.TextGame/TextGame/include/Functions.hpp

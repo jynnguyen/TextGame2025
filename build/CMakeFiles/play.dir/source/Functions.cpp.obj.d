@@ -1,6 +1,7 @@
 CMakeFiles/play.dir/source/Functions.cpp.obj: \
- D:\.TextGame\source\Functions.cpp D:/.TextGame/include/Functions.hpp \
- D:/.TextGame/include/main.hpp \
+ D:\.TextGame\TextGame\source\Functions.cpp \
+ D:/.TextGame/TextGame/include/Functions.hpp \
+ D:/.TextGame/TextGame/include/main.hpp \
  C:/msys64/ucrt64/include/c++/14.2.0/iostream \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/requires_hosted.h \
  C:/msys64/ucrt64/include/c++/14.2.0/x86_64-w64-mingw32/bits/c++config.h \
