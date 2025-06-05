@@ -1,0 +1,3 @@
+D:/.TextGame/build/CMakeFiles/play.dir
+D:/.TextGame/build/CMakeFiles/edit_cache.dir
+D:/.TextGame/build/CMakeFiles/rebuild_cache.dir

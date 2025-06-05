@@ -1,0 +1,35 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/play.dir/source/Functions.cpp.obj"
+  "CMakeFiles/play.dir/source/Functions.cpp.obj.d"
+  "CMakeFiles/play.dir/source/components.cpp.obj"
+  "CMakeFiles/play.dir/source/components.cpp.obj.d"
+  "CMakeFiles/play.dir/source/configuration.cpp.obj"
+  "CMakeFiles/play.dir/source/configuration.cpp.obj.d"
+  "CMakeFiles/play.dir/source/gacha.cpp.obj"
+  "CMakeFiles/play.dir/source/gacha.cpp.obj.d"
+  "CMakeFiles/play.dir/source/game.cpp.obj"
+  "CMakeFiles/play.dir/source/game.cpp.obj.d"
+  "CMakeFiles/play.dir/source/gameData.cpp.obj"
+  "CMakeFiles/play.dir/source/gameData.cpp.obj.d"
+  "CMakeFiles/play.dir/source/guardian.cpp.obj"
+  "CMakeFiles/play.dir/source/guardian.cpp.obj.d"
+  "CMakeFiles/play.dir/source/level.cpp.obj"
+  "CMakeFiles/play.dir/source/level.cpp.obj.d"
+  "CMakeFiles/play.dir/source/main.cpp.obj"
+  "CMakeFiles/play.dir/source/main.cpp.obj.d"
+  "CMakeFiles/play.dir/source/orb.cpp.obj"
+  "CMakeFiles/play.dir/source/orb.cpp.obj.d"
+  "CMakeFiles/play.dir/source/raid.cpp.obj"
+  "CMakeFiles/play.dir/source/raid.cpp.obj.d"
+  "CMakeFiles/play.dir/source/unit.cpp.obj"
+  "CMakeFiles/play.dir/source/unit.cpp.obj.d"
+  "libplay.dll.a"
+  "play.exe"
+  "play.exe.manifest"
+  "play.pdb"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/play.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()
