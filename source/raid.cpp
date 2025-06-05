@@ -25,7 +25,7 @@ bool Raid::start()
         cout << " _________" << endl;
         cout << " [ROUND " << round << "]" << endl;
         cout << " ---------" << endl;
-        guardian.skill(round,onDeploy,enemy);
+        guardian.skill(round, onDeploy, enemy);
         takeAction(onDeploy, enemy);
         takeAction(enemy, onDeploy);
         cout << string(30, '-') << endl;
@@ -42,7 +42,7 @@ void Raid::takeAction(Unit &attacker, Unit &target)
 {
     attacker.updateBuffs();
     cout << attacker.getName() << "'s turn: " << endl;
-    if (!attacker.isAlive() || !target.isAlive() || attacker.updateBadStatus(target))
+    if (attacker.updateBadStatus(target) || !attacker.isAlive() || !target.isAlive())
         return;
     this_thread::sleep_for(chrono::milliseconds(int(1000 / speed)));
     if (attacker.isEnoughEnergy())

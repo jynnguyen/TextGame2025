@@ -27,19 +27,21 @@ void Guardian::setOwned()
 
 void Guardian::skill(const int &currentRound, Unit &ally, Unit &enemy)
 {
-    if (currentRound % roundPerAction != 0 && roundPerAction < 50)
+    if (currentRound % roundPerAction != 0 || roundPerAction > 50)
         return;
     cout << " >> Guardian '" << name << "' activates skill " << endl;
     switch (id)
     {
     case 0:
-        ally.heal(ally.stats.maxHp * 0.08);
+        ally.heal(ally.stats.maxHp * 0.1);
         break;
     case 1:
         ally.energy.current += 25;
         break;
     case 2:
         ally.applyStatBuff(StatType::DEF, 0.2 * ally.stats.maxDef, 3, name);
+    case 3:
+        ally.applyDot(enemy,5,0.5);
     default:
         return;
     }

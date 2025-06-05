@@ -8,7 +8,7 @@ Unit=Mydei,{450,30,0},160
 Unit=Archer,{280,35,20},30
 Unit=Kizaru,{320,60,5},60
 Unit=Big Mom,{360,35,15},60
-Unit=Kafka,{300,65,20},25
+Unit=Kafka,{320,65,20},25
 Unit=Natsu,{280,65,10},90
 
 Enemy=Slime,{370,40,20},60
@@ -30,6 +30,7 @@ Orb=Soru,{25,0,0},{0,0},{0,0,25,0}
 Orb=Lightning,{0,10,0},{0,0},{0,40,0,0}
 Orb=Flame,{0,20,0},{0,0},{0,0,30,0}
 
-Guardian=Fairy,3
+Guardian=Fairy,4
 Guardian=Sunday,5
 Guardian=Tanker,5
+Guardian=Swan,5
