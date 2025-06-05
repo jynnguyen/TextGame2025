@@ -1,2 +1,2 @@
-Game made by jynnguyen
-Using C++
+Game made by jynnguyen.
+Using C++.
