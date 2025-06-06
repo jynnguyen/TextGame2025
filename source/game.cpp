@@ -220,10 +220,18 @@ void Game::displayInfo()
         cout << " > ID selected is out of range" << endl;
         return;
     }
+    cout << endl
+         << " ==UNIT INFO== " << endl;
     gameData.units[idx].info();
+    cout << endl
+         << " ==ORB INFO== " << endl;
     gameData.orbs[idx].info();
     if (!gameData.guardians.empty() && idx >= 0 && idx < gameData.guardians.size())
+    {
+        cout << endl
+             << " ==GUARDIAN INFO== " << endl;
         gameData.guardians[idx].info();
+    }
 }
 
 void Game::gacha()

@@ -292,7 +292,7 @@ void Unit::ultimate(Unit &target)
             double hpLost = max_hp - stats.hp;
             heal(hpLost);
             applyStatBuff(StatType::ATK, (hpLost * 0.05 + max_hp * 0.15), 10, name);
-            energy.regen = 0;
+            energy.max = 999999;
         }
 
         else if (id == 7)
@@ -319,10 +319,11 @@ void Unit::ultimate(Unit &target)
         else if (id == 10)
         {
             cout << "Time to say bye. BOOM.";
-            applyDot(target, 10, 0.55);
-            sStats.penetration += 1;
+            applyDot(target, 10, 0.35);
+            sStats.penetration += (sStats.penetration < 100) ? 0.2 : 0;
+            sStats.dmgBonus += 0.5;
             target.isDotted(*this);
-            sStats.penetration -= 1;
+            sStats.dmgBonus -= 0.5;
         }
         else if (id == 11)
         {

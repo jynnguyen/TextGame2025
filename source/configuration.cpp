@@ -167,6 +167,19 @@ void Configuration::loadSave(const string &str)
             i++;
         }
     }
+    else if (str.find("GuardianOwned=") == 0)
+    {
+        int start = str.find('=') + 1;
+        stringstream ss(str.substr(start));
+        string val;
+        int i = 0;
+        while (getline(ss, val, ',') && i < guardians.size())
+        {
+            if (val == "1")
+                guardians[i].setOwned();
+            i++;
+        }
+    }
     else if (str.find("Level=") == 0)
     {
         int start = str.find('=') + 1;
@@ -204,6 +217,14 @@ void Configuration::saveAll()
         {
             save << orbs[i].getOwned();
             if (i != orbs.size() - 1)
+                save << ",";
+        }
+        save << endl
+             << "GuardianOwned=";
+        for (int i = 0; i < guardians.size(); i++)
+        {
+            save << guardians[i].getOwned();
+            if (i != guardians.size() - 1)
                 save << ",";
         }
     }
