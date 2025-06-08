@@ -20,8 +20,8 @@ void Game::menu()
 {
     cout << endl
          << string(50, '*') << endl;
-    cout << "  ==== MAIN MENU ====  " << endl;
-    cout << " > Command: ";
+    cout << "  >=== MAIN MENU ===<  " << endl;
+    cout << "  > Command: ";
     cin >> playerInput;
     handleInput();
 }
@@ -53,6 +53,8 @@ void Game::handleInput()
         setRaidSpeed();
     else if (playerInput == "raid")
         raid();
+    else if (playerInput == "boss")
+        boss();
     else if (playerInput == "gacha" || playerInput == "ga")
         gacha();
     else if (playerInput == "levelup" || playerInput == "lvup")
@@ -77,14 +79,34 @@ void Game::raid()
     Unit e = gameData.spawnEnemy();
     Guardian g = (gIdx >= 0 && gIdx < gameData.guardians.size()) ? gameData.guardians[gIdx] : Guardian();
     Raid r(u, e, g, raidSpeed);
-    if (r.start())
+    if (r.normal())
     {
         cout << " > You won !" << endl;
-        int extraExp = rng(1, 3), extraGold = rng(10, 20), extraRuby = 1;
-        gameData.level.setCurrentExp(gameData.level.getCurrentExp() + extraExp);
-        gameData.gold += extraGold, gameData.ruby += extraRuby;
-        cout << " >> You gain " << extraExp << "_exp | " << extraGold << "_gold | " << extraRuby << "_ruby" << endl;
+        int expReward = rng(1, 3), goldReward = rng(10, 20), rubyReward = 1;
+        gameData.level.setCurrentExp(gameData.level.getCurrentExp() + expReward);
+        gameData.gold += goldReward, gameData.ruby += rubyReward;
+        cout << " >> You gain " << expReward << "_exp | " << goldReward << "_gold | " << rubyReward << "_ruby" << endl;
     }
+}
+
+void Game::boss()
+{
+    if (unitIdx < 0 || unitIdx >= gameData.units.size())
+    {
+        cout << " > Deploy unit first" << endl;
+        return;
+    }
+    Unit u = gameData.units[unitIdx];
+    Unit e = gameData.spawnEnemy(true);
+    Guardian g = (gIdx >= 0 && gIdx < gameData.guardians.size()) ? gameData.guardians[gIdx] : Guardian();
+    Raid r(u, e, g, raidSpeed);
+    double totalDmg = r.boss();
+    int rubyReward = totalDmg / 5000;
+    rubyReward = rubyReward <= 0 ? 1 : rubyReward > 10 ? 10 : rubyReward;
+    int goldReward = totalDmg / 1000;
+    goldReward = goldReward <= 0 ? 1 : goldReward > 50 ? 50 : goldReward;
+    gameData.ruby += rubyReward, gameData.gold += goldReward;
+    cout << " >> You gain " << goldReward << "_gold | " << rubyReward << "_ruby" << endl;
 }
 
 // Game Features
@@ -125,7 +147,7 @@ void Game::deployUnit()
 void Game::selectGuardian()
 {
     string name = (gIdx >= 0 && gIdx < gameData.guardians.size()) ? gameData.guardians[gIdx].getName() : "";
-    cout << "  >[GUARDIAN DEPLOYMENT]<  " << endl;
+    cout << "  == GUARDIAN DEPLOYMENT ==  " << endl;
     cout << "Current guardian deployment: " << name << endl;
     string input;
     cout << "Select guardian to deploy: ";
@@ -221,15 +243,15 @@ void Game::displayInfo()
         return;
     }
     cout << endl
-         << " ==UNIT INFO== " << endl;
+         << " == UNIT INFO == " << endl;
     gameData.units[idx].info();
     cout << endl
-         << " ==ORB INFO== " << endl;
+         << " == ORB INFO == " << endl;
     gameData.orbs[idx].info();
     if (!gameData.guardians.empty() && idx >= 0 && idx < gameData.guardians.size())
     {
         cout << endl
-             << " ==GUARDIAN INFO== " << endl;
+             << " == GUARDIAN INFO == " << endl;
         gameData.guardians[idx].info();
     }
 }
@@ -296,7 +318,7 @@ void Game::adminMode()
         o.setOwned();
     for (Guardian &g : gameData.guardians)
         g.setOwned();
-    raidSpeed = 10;
+    raidSpeed = 1000;
     cout << " >>> You've just accessed to Admin Mode. Get all items " << endl;
 }
 

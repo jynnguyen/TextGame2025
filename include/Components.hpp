@@ -89,6 +89,7 @@ public:
     SpecialStats& operator=(const SpecialStats &other);
 };
 
+
 enum class StatType {
     HP,
     ATK,

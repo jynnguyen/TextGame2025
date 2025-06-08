@@ -7,7 +7,8 @@
 class Raid{ 
     public:
     Raid(Unit deploy = Unit(), Unit e = Unit(),Guardian g = Guardian(), double s = 1):onDeploy(deploy),enemy(e),guardian(g),speed(s){}
-    bool start();
+    bool normal();
+    double boss();
     void takeAction(Unit& attacker, Unit& target);
 
     private:

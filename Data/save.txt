@@ -1,5 +1,5 @@
-Level=0,100000010
-Currency=100000084,100000005
+Level=0,99999999
+Currency=99999999,99999999
 UnitOwned=1,1,1,1,1,1,1,1,1,1,1,1
 OrbOwned=1,1,1,1,1,1,1,1,1,1,1,1
-GuardianOwned=1,1,1,1,1
+GuardianOwned=1,1,1,1,1,1

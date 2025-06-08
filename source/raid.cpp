@@ -1,12 +1,8 @@
 #include "Raid.hpp"
 
-bool Raid::start()
+bool Raid::normal()
 {
-    if (onDeploy.getName() == "")
-    {
-        cout << " > Deploy unit first !" << endl;
-        return false;
-    }
+    cout << " == NORMAL RAID == " << endl;
     enemy.info();
     string input;
     cout << endl
@@ -35,7 +31,32 @@ bool Raid::start()
         cout << string(30, '-') << endl;
         round++;
     } while (onDeploy.isAlive() && enemy.isAlive() && round < 25);
+    cout << " Total dmg dealt (based on Enemy's max and current HP): " << enemy.stats.maxHp - enemy.stats.hp << endl;
     return !enemy.isAlive();
+}
+
+double Raid::boss()
+{
+    cout << " == BOSS RAID == " << endl;
+    enemy.info();
+    int round = 0;
+    do
+    {
+        cout << " _________" << endl;
+        cout << " [ROUND " << round << "]" << endl;
+        cout << " ---------" << endl;
+        guardian.skill(round, onDeploy, enemy);
+        takeAction(onDeploy, enemy);
+        takeAction(enemy, onDeploy);
+        cout << string(30, '-') << endl;
+        onDeploy.displayStats();
+        enemy.displayStats();
+        this_thread::sleep_for(chrono::milliseconds(int(2000 / speed)));
+        cout << string(30, '-') << endl;
+        round++;
+    } while (onDeploy.isAlive() && enemy.isAlive() && round < 25);
+    cout << " Total dmg dealt (based on Enemy's max and current HP): " << enemy.stats.maxHp - enemy.stats.hp << endl;
+    return enemy.stats.maxHp - enemy.stats.hp;
 }
 
 void Raid::takeAction(Unit &attacker, Unit &target)

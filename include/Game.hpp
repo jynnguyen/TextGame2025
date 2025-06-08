@@ -26,6 +26,7 @@ private:
     void handleInput();
     void menu();
     void raid();
+    void boss();
 
     // Game Features
     void deployUnit();

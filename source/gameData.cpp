@@ -16,9 +16,16 @@ GameData::GameData(const string &fileName) : config(fileName)
     config.clearAll();
 }
 
-Unit GameData::spawnEnemy()
+Unit GameData::spawnEnemy(bool isBoss)
 {
-    return enemies[rng(0, enemies.size() - 1)];
+    if (!isBoss)
+        return enemies[rng(0, enemies.size() - 1)];
+    else
+    {
+        Unit e = Unit("WORLD DEVIL", {100000000, 30, 30}, 250);
+        e.setType(1), e.setID(666);
+        return e;
+    }
 }
 
 void GameData::save()

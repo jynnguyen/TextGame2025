@@ -31,7 +31,8 @@ Orb=Lightning,{0,10,0},{0,0},{0,40,0,0}
 Orb=Flame,{0,20,0},{0,0},{0,0,30,0}
 
 Guardian=Fairy,4
-Guardian=Sunday,5
-Guardian=Tanker,5
-Guardian=Swan,5
-Guardian=Mei,3
+Guardian=Sunday,6
+Guardian=Tanker,4
+Guardian=Swan,3
+Guardian=Mei,5
+Guardian=Arum,10

@@ -9,7 +9,7 @@ class GameData
 {
 public:
     GameData(const string& fileName);
-    Unit spawnEnemy();
+    Unit spawnEnemy(bool isBoss = false);
     void save();
     void inventory(string type = "");
     void setUnitLevel();

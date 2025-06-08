@@ -291,7 +291,7 @@ void Unit::ultimate(Unit &target)
             cout << "Bloodlust activates";
             double hpLost = max_hp - stats.hp;
             heal(hpLost);
-            applyStatBuff(StatType::ATK, (hpLost * 0.05 + max_hp * 0.15), 10, name);
+            stats.atk += (hpLost * 0.1 + max_hp * 0.15);
             energy.max = 999999;
         }
 
@@ -299,7 +299,7 @@ void Unit::ultimate(Unit &target)
         {
             cout << "Explosive arrow";
             totalDmg += attack(target, energy.current * 0.05, 0);
-            energy.regen += 8;
+            energy.regen += 7;
         }
         else if (id == 8)
         {
@@ -310,17 +310,17 @@ void Unit::ultimate(Unit &target)
         else if (id == 9)
         {
             cout << "Your soul is mine";
-            sStats.penetration += 1;
-            double dmg = max_hp * 0.25;
+            sStats.penetration += 0.6;
+            double dmg = max_hp * 0.4;
             totalDmg = sAttack(target, dmg);
-            sStats.penetration -= 1;
+            sStats.penetration -= 0.6;
             heal(totalDmg * 0.2);
         }
         else if (id == 10)
         {
             cout << "Time to say bye. BOOM.";
-            applyDot(target, 10, 0.35);
-            sStats.penetration += (sStats.penetration < 100) ? 0.2 : 0;
+            applyDot(target, 10, 0.33);
+            sStats.penetration = (sStats.penetration < 1) ? sStats.penetration + 0.2 : 1;
             sStats.dmgBonus += 0.5;
             target.isDotted(*this);
             sStats.dmgBonus -= 0.5;
@@ -365,6 +365,11 @@ void Unit::ultimate(Unit &target)
             max_hp *= 1.25, max_atk *= 1.25, max_def *= 1.25;
             stats.hp = max_hp, stats.atk = max_atk, stats.def = max_def;
             energy.regen = 0;
+        }
+        else if (id == 666)
+        {
+            cout << "Apocalypse soon comes";
+            stats.atk = stats.atk*stats.atk;
         }
     default:
         break;
