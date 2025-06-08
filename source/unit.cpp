@@ -310,15 +310,13 @@ void Unit::ultimate(Unit &target)
         else if (id == 9)
         {
             cout << "Your soul is mine";
-            sStats.penetration += 0.6;
-            double dmg = max_hp * 0.4;
+            double dmg = max_hp * 0.5;
             totalDmg = sAttack(target, dmg);
-            sStats.penetration -= 0.6;
             heal(totalDmg * 0.2);
         }
         else if (id == 10)
         {
-            cout << "Time to say bye. BOOM.";
+            cout << "Time to say bye\n  BOOM.";
             applyDot(target, 10, 0.33);
             sStats.penetration = (sStats.penetration < 1) ? sStats.penetration + 0.2 : 1;
             sStats.dmgBonus += 0.5;
@@ -330,6 +328,12 @@ void Unit::ultimate(Unit &target)
             cout << "Dragon Flame";
             totalDmg += attack(target, 1.25, 0);
             applyDot(target, 3, 0.75);
+        }
+        else if (id == 12)
+        {
+            cout << "Excaliburr !";
+            applySpecialBuff(SpecialStatType::DmgBonus, 0.25, 5, name);
+            attack(target, 3, 0);
         }
 
         break;
@@ -369,7 +373,7 @@ void Unit::ultimate(Unit &target)
         else if (id == 666)
         {
             cout << "Apocalypse soon comes";
-            stats.atk = stats.atk*stats.atk;
+            stats.atk = stats.atk * stats.atk;
         }
     default:
         break;

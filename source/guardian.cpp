@@ -39,7 +39,7 @@ void Guardian::skill(const int &currentRound, Unit &ally, Unit &enemy)
         ally.energy.current += 30;
         break;
     case 2:
-        ally.applyStatBuff(StatType::DEF, 0.4 * ally.stats.maxDef, 3, name);
+        ally.applyStatBuff(StatType::DEF, 0.5 * ally.stats.maxDef, 3, name);
         break;
     case 3:
         ally.applyDot(enemy,5,0.35);
