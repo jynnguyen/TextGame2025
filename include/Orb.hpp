@@ -6,7 +6,7 @@
 class Orb
 {
 public:
-    Orb(string n = "", Stats s = {0, 0, 0}, CritStats c = {0, 0}, SpecialStats ss = {0, 0, 0, 0}) : name(n), stats(s), critStats(c), sStats(ss)
+    Orb(string n = "", BaseStats b = {0, 0, 0}, CritStats c = {0, 0}, Modifiers m = {0, 0, 0, 0}) : name(n), base(b), crit(c), mod(m)
     {
     }
     void setOwned();
@@ -21,9 +21,9 @@ public:
 protected:
     string name, rarity = "SR";
     bool owned = 0;
-    Stats stats;
-    CritStats critStats;
-    SpecialStats sStats;
+    BaseStats base;
+    CritStats crit;
+    Modifiers mod;
     int id = -1;
     friend class Unit;
     friend class Game;

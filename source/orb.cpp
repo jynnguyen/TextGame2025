@@ -9,9 +9,9 @@ void Orb::info()
 {
     cout << string(2, '-') << name << " (Rarity: " << rarity << " - Owned: " << (owned ? "Yes" : "No");
     cout << ")" << string(2, '-') << endl;
-    stats.info();
-    critStats.info();
-    sStats.info();
+    base.info();
+    crit.info();
+    mod.info();
 }
 
 bool Orb::getOwned() const

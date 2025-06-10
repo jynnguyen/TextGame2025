@@ -22,7 +22,7 @@ Unit GameData::spawnEnemy(bool isBoss)
         return enemies[rng(0, enemies.size() - 1)];
     else
     {
-        Unit e = Unit("WORLD DEVIL", {100000000, 30, 30}, 250);
+        Unit e = Unit(1,"WORLD DEVIL", {10000000, 50, 50}, 250);
         e.setType(1), e.setID(666);
         return e;
     }
@@ -83,6 +83,7 @@ void GameData::inventory(string type)
 
 void GameData::setUnitLevel()
 {
-    for (Unit &u : units)
+    for (Unit &u : units){
         u.setLevel(level.get());
+    }
 }

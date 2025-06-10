@@ -1,6 +1,6 @@
-CMakeFiles/play.dir/source/guardian.cpp.obj: \
- D:\.TextGame\TextGame\source\guardian.cpp \
- D:/.TextGame/TextGame/include/Guardian.hpp \
+CMakeFiles/play.dir/source/statsCal.cpp.obj: \
+ D:\.TextGame\TextGame\source\statsCal.cpp \
+ D:/.TextGame/TextGame/include/StatsCal.hpp \
  D:/.TextGame/TextGame/include/main.hpp \
  C:/msys64/ucrt64/include/c++/14.2.0/iostream \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/requires_hosted.h \
@@ -212,8 +212,5 @@ CMakeFiles/play.dir/source/guardian.cpp.obj: \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_numeric.h \
  C:/msys64/ucrt64/include/c++/14.2.0/pstl/glue_numeric_defs.h \
  C:/msys64/ucrt64/include/c++/14.2.0/pstl/execution_defs.h \
- D:/.TextGame/TextGame/include/Unit.hpp \
  D:/.TextGame/TextGame/include/Components.hpp \
- D:/.TextGame/TextGame/include/Orb.hpp \
- D:/.TextGame/TextGame/include/StatsCal.hpp \
  D:/.TextGame/TextGame/include/Functions.hpp

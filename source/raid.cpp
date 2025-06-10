@@ -31,7 +31,7 @@ bool Raid::normal()
         cout << string(30, '-') << endl;
         round++;
     } while (onDeploy.isAlive() && enemy.isAlive() && round < 25);
-    cout << " Total dmg dealt (based on Enemy's max and current HP): " << enemy.stats.maxHp - enemy.stats.hp << endl;
+    cout << " Total dmg dealt (based on Enemy's max and current HP): " << enemy.stats.getHpLost() << endl;
     return !enemy.isAlive();
 }
 
@@ -55,13 +55,13 @@ double Raid::boss()
         cout << string(30, '-') << endl;
         round++;
     } while (onDeploy.isAlive() && enemy.isAlive() && round < 25);
-    cout << " Total dmg dealt (based on Enemy's max and current HP): " << enemy.stats.maxHp - enemy.stats.hp << endl;
-    return enemy.stats.maxHp - enemy.stats.hp;
+    cout << " Total dmg dealt (based on Enemy's max and current HP): " << enemy.stats.getHpLost() << endl;
+    return enemy.stats.getHpLost();
 }
 
 void Raid::takeAction(Unit &attacker, Unit &target)
 {
-    attacker.updateBuffs();
+    attacker.stats.updateBuffs();
     cout << attacker.getName() << "'s turn: " << endl;
     if (attacker.updateBadStatus(target) || !attacker.isAlive() || !target.isAlive())
         return;

@@ -1,31 +1,31 @@
 #include "Components.hpp"
 
-void Stats::reset()
+void BaseStats::reset()
 {
     hp = maxHp;
     atk = maxAtk;
     def = maxDef;
 }
 
-void Stats::info()
+void BaseStats::info()
 {
     cout << "HP: " << hp << " | ATK: " << atk << " | DEF: " << def << endl;
 }
 
-Stats &Stats::operator*=(double coeff)
+BaseStats &BaseStats::operator*=(double num)
 {
-    maxAtk *= coeff;
-    maxHp *= coeff;
-    maxDef *= coeff;
+    maxAtk *= num;
+    maxHp *= num;
+    maxDef *= num;
     return *this;
 }
 
-Stats Stats::multiply(double coeff) const
+BaseStats BaseStats::multiply(double num) const
 {
-    Stats result = *this;
-    result.atk *= coeff;
-    result.hp *= coeff;
-    result.def *= coeff;
+    BaseStats result = *this;
+    result.atk *= num;
+    result.hp *= num;
+    result.def *= num;
     return result;
 }
 
@@ -58,7 +58,7 @@ void Status::reset()
     scale = 0;
 }
 
-void SpecialStats::reset()
+void Modifiers::reset()
 {
     penetration = 0;
     dmgBonus = 0;
@@ -66,7 +66,7 @@ void SpecialStats::reset()
     evade = 0.01;
 }
 
-void SpecialStats::info()
+void Modifiers::info()
 {
     if (penetration > 0)
         cout << "Penetration: " << penetration * 100 << "% | ";
@@ -81,17 +81,25 @@ void SpecialStats::info()
     cout << endl;
 }
 
-Stats Stats::operator+(const Stats &other) const
+BaseStats BaseStats::operator+(const BaseStats &other) const
 {
-    return Stats(hp + other.hp, atk + other.atk, def + other.def);
+    return BaseStats(hp + other.hp, atk + other.atk, def + other.def);
 }
 
-Stats Stats::operator-(const Stats &other) const
+BaseStats &BaseStats::operator+=(const BaseStats &other)
 {
-    return Stats(hp - other.hp, atk - other.atk, def - other.def);
+    maxHp += other.maxHp;
+    maxAtk += other.maxAtk;
+    maxDef += other.maxDef;
+    return *this;
 }
 
-Stats &Stats::operator=(const Stats &other)
+BaseStats BaseStats::operator-(const BaseStats &other) const
+{
+    return BaseStats(hp - other.hp, atk - other.atk, def - other.def);
+}
+
+BaseStats &BaseStats::operator=(const BaseStats &other)
 {
     if (this != &other)
     {
@@ -132,7 +140,7 @@ CritStats &CritStats::operator=(const CritStats &other)
     return *this;
 }
 
-SpecialStats &SpecialStats::operator+=(const SpecialStats &other)
+Modifiers &Modifiers::operator+=(const Modifiers &other)
 {
     penetration += other.penetration;
     dmgReduction += other.dmgReduction;
@@ -141,7 +149,7 @@ SpecialStats &SpecialStats::operator+=(const SpecialStats &other)
     return *this;
 }
 
-SpecialStats &SpecialStats::operator-=(const SpecialStats &other)
+Modifiers &Modifiers::operator-=(const Modifiers &other)
 {
     penetration -= other.penetration;
     dmgReduction -= other.dmgReduction;
@@ -150,7 +158,7 @@ SpecialStats &SpecialStats::operator-=(const SpecialStats &other)
     return *this;
 }
 
-SpecialStats &SpecialStats::operator=(const SpecialStats &other)
+Modifiers &Modifiers::operator=(const Modifiers &other)
 {
     if (this != &other)
     {

@@ -392,6 +392,30 @@ source/raid.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\play.dir\build.make CMakeFiles/play.dir/source/raid.cpp.s
 .PHONY : source/raid.cpp.s
 
+source/statsCal.obj: source/statsCal.cpp.obj
+.PHONY : source/statsCal.obj
+
+# target to build an object file
+source/statsCal.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\play.dir\build.make CMakeFiles/play.dir/source/statsCal.cpp.obj
+.PHONY : source/statsCal.cpp.obj
+
+source/statsCal.i: source/statsCal.cpp.i
+.PHONY : source/statsCal.i
+
+# target to preprocess a source file
+source/statsCal.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\play.dir\build.make CMakeFiles/play.dir/source/statsCal.cpp.i
+.PHONY : source/statsCal.cpp.i
+
+source/statsCal.s: source/statsCal.cpp.s
+.PHONY : source/statsCal.s
+
+# target to generate assembly for a file
+source/statsCal.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\play.dir\build.make CMakeFiles/play.dir/source/statsCal.cpp.s
+.PHONY : source/statsCal.cpp.s
+
 source/unit.obj: source/unit.cpp.obj
 .PHONY : source/unit.obj
 
@@ -458,6 +482,9 @@ help:
 	@echo ... source/raid.obj
 	@echo ... source/raid.i
 	@echo ... source/raid.s
+	@echo ... source/statsCal.obj
+	@echo ... source/statsCal.i
+	@echo ... source/statsCal.s
 	@echo ... source/unit.obj
 	@echo ... source/unit.i
 	@echo ... source/unit.s

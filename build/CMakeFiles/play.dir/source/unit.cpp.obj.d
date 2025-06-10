@@ -217,4 +217,5 @@ CMakeFiles/play.dir/source/unit.cpp.obj: \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_numeric.h \
  C:/msys64/ucrt64/include/c++/14.2.0/pstl/glue_numeric_defs.h \
  C:/msys64/ucrt64/include/c++/14.2.0/pstl/execution_defs.h \
+ D:/.TextGame/TextGame/include/StatsCal.hpp \
  D:/.TextGame/TextGame/include/Functions.hpp

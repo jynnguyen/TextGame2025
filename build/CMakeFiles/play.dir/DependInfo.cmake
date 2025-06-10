@@ -19,6 +19,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "D:/.TextGame/TextGame/source/main.cpp" "CMakeFiles/play.dir/source/main.cpp.obj" "gcc" "CMakeFiles/play.dir/source/main.cpp.obj.d"
   "D:/.TextGame/TextGame/source/orb.cpp" "CMakeFiles/play.dir/source/orb.cpp.obj" "gcc" "CMakeFiles/play.dir/source/orb.cpp.obj.d"
   "D:/.TextGame/TextGame/source/raid.cpp" "CMakeFiles/play.dir/source/raid.cpp.obj" "gcc" "CMakeFiles/play.dir/source/raid.cpp.obj.d"
+  "D:/.TextGame/TextGame/source/statsCal.cpp" "CMakeFiles/play.dir/source/statsCal.cpp.obj" "gcc" "CMakeFiles/play.dir/source/statsCal.cpp.obj.d"
   "D:/.TextGame/TextGame/source/unit.cpp" "CMakeFiles/play.dir/source/unit.cpp.obj" "gcc" "CMakeFiles/play.dir/source/unit.cpp.obj.d"
   )
 

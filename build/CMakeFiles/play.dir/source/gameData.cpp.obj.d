@@ -215,7 +215,8 @@ CMakeFiles/play.dir/source/gameData.cpp.obj: \
  D:/.TextGame/TextGame/include/Unit.hpp \
  D:/.TextGame/TextGame/include/Components.hpp \
  D:/.TextGame/TextGame/include/Orb.hpp \
+ D:/.TextGame/TextGame/include/StatsCal.hpp \
+ D:/.TextGame/TextGame/include/Functions.hpp \
  D:/.TextGame/TextGame/include/Level.hpp \
  D:/.TextGame/TextGame/include/Configuration.hpp \
- D:/.TextGame/TextGame/include/Guardian.hpp \
- D:/.TextGame/TextGame/include/Functions.hpp
+ D:/.TextGame/TextGame/include/Guardian.hpp

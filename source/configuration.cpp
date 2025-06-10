@@ -9,7 +9,10 @@ Configuration::Configuration(const string &fileName)
     {
         string line;
         while (getline(asset, line))
+        {
+            removeSpace(line);
             loadAsset(line);
+        }
     }
     else
     {
@@ -21,6 +24,7 @@ Configuration::Configuration(const string &fileName)
         string line;
         while (getline(save, line))
         {
+            removeSpace(line);
             loadSave(line);
         }
     }
@@ -45,29 +49,14 @@ void Configuration::loadAsset(const string &str)
 
 void Configuration::loadUnit(const string &str, string type)
 {
-    string name;
+    char nameC[50];
+    string toRead = type == "unit" ? "Unit=%49[^,],{%lf,%lf,%lf},%lf" : "Enemy=%49[^,],{%lf,%lf,%lf},%lf";
     double hp, atk, def, energy;
-
-    size_t start = str.find('=') + 1;
-    size_t end = str.find(',', start);
-    name = str.substr(start, end - start);
-
-    start = str.find('{', end) + 1;
-    end = str.find(',', start);
-    hp = stoi(str.substr(start, end - start));
-
-    start = end + 1;
-    end = str.find(',', start);
-    atk = stoi(str.substr(start, end - start));
-
-    start = end + 1;
-    end = str.find('}', start);
-    def = stoi(str.substr(start, end - start));
-
-    start = str.find(',', end) + 1;
-    energy = stoi(str.substr(start));
-
-    Unit u(name, {hp, atk, def}, energy);
+    int count = sscanf(str.c_str(), toRead.c_str(), nameC, &hp, &atk, &def, &energy);
+    string name = nameC;
+    int typeInNumber = (type == "unit") ? 0 : 1;
+    Unit u(typeInNumber, name, {hp, atk, def}, energy);
+    u.update();
     int size = (type == "unit") ? units.size() : enemies.size();
     if (size % 10 == 0 && size != 0)
         u.setRarity("UR");
@@ -76,13 +65,11 @@ void Configuration::loadUnit(const string &str, string type)
     if (type == "unit")
     {
         u.setID(size);
-        u.setType(0);
         units.emplace_back(u);
     }
-    else
+    else if (type == "enemy")
     {
         u.setID(size);
-        u.setType(1);
         enemies.emplace_back(u);
     }
 }
@@ -241,4 +228,16 @@ void Configuration::setUnitLevel()
     {
         units[i].setLevel(level);
     }
+}
+
+void Configuration::removeSpace(string &str)
+{
+    string temp;
+    for (int i = 0; i < str.length(); i++)
+    {
+        if (isspace(str[i]))
+            continue;
+        temp += str[i];
+    }
+    str = temp;
 }

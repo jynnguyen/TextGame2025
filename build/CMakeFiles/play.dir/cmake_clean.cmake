@@ -21,6 +21,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/play.dir/source/orb.cpp.obj.d"
   "CMakeFiles/play.dir/source/raid.cpp.obj"
   "CMakeFiles/play.dir/source/raid.cpp.obj.d"
+  "CMakeFiles/play.dir/source/statsCal.cpp.obj"
+  "CMakeFiles/play.dir/source/statsCal.cpp.obj.d"
   "CMakeFiles/play.dir/source/unit.cpp.obj"
   "CMakeFiles/play.dir/source/unit.cpp.obj.d"
   "libplay.dll.a"

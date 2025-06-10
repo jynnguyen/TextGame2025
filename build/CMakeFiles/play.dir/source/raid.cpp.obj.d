@@ -215,5 +215,6 @@ CMakeFiles/play.dir/source/raid.cpp.obj: \
  D:/.TextGame/TextGame/include/Unit.hpp \
  D:/.TextGame/TextGame/include/Components.hpp \
  D:/.TextGame/TextGame/include/Orb.hpp \
- D:/.TextGame/TextGame/include/Guardian.hpp \
- D:/.TextGame/TextGame/include/Functions.hpp
+ D:/.TextGame/TextGame/include/StatsCal.hpp \
+ D:/.TextGame/TextGame/include/Functions.hpp \
+ D:/.TextGame/TextGame/include/Guardian.hpp

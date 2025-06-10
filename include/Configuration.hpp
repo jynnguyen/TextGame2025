@@ -17,6 +17,7 @@ public:
     void setUnitLevel();
     void clearAll();
     void saveAll();
+    void removeSpace(string& str);
     string getDataPath() const;
 
 private:

@@ -33,19 +33,19 @@ void Guardian::skill(const int &currentRound, Unit &ally, Unit &enemy)
     switch (id)
     {
     case 0:
-        ally.heal(ally.stats.maxHp * 0.12);
+        ally.heal(ally.stats.base.maxHp * 0.12);
         break;
     case 1:
         ally.energy.current += 30;
         break;
     case 2:
-        ally.applyStatBuff(StatType::DEF, 0.5 * ally.stats.maxDef, 3, name);
+        ally.stats.buffBase(StatsCal::BaseType::DEF, 0.8 * ally.stats.base.maxDef, 3, name);
         break;
     case 3:
-        ally.applyDot(enemy,5,0.35);
+        ally.applyDot(enemy,5,0.2);
         break;
     case 4:
-        ally.sStats.dmgBonus += 0.08;
+        ally.stats.mod.dmgBonus += 0.08;
         break;
     case 5:
         ally.applyCC(enemy,1);
