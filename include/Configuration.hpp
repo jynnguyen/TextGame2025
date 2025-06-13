@@ -29,5 +29,6 @@ private:
     vector<Orb> orbs;
     vector<Guardian> guardians;
     int gold = 100, ruby = 10, level = 1, currentExp = 0;
+    int speed;
     friend class GameData;
 };

@@ -3,7 +3,7 @@
 GameData::GameData(const string &fileName):config(fileName)
 {
     gold = config.gold, ruby = config.ruby;
-    level = config.level;
+    level = config.level, speed = config.speed;
     level.setCurrentExp(config.currentExp);
     for (const Unit &u : config.units)
         units.emplace_back(u);

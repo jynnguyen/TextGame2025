@@ -17,6 +17,7 @@ public:
 private:
     friend class Game;
     int gold = 50, ruby = 10;
+    int speed = 1;
     Level level;
     Configuration config;
     vector<Unit> units;

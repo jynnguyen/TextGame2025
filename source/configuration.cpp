@@ -39,6 +39,8 @@ Configuration::Configuration(const string &fileName)
 
 void Configuration::loadAsset(const string &str)
 {
+    if (str.find("Speed=") == 0)
+        speed = stoi(str.substr(str.find("=") + 1));
     if (str.find("Unit=") == 0)
         loadUnit(str, "unit");
     else if (str.find("Enemy=") == 0)

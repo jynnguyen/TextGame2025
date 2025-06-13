@@ -1,3 +1,5 @@
+Speed=1000
+
 //Unit=NAME,{HP,ATK,DEF},ENERGY
 Unit=Cid,{290,55,20},60
 Unit=Goku,{270,50,30},90

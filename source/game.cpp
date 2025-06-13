@@ -87,7 +87,7 @@ void Game::raid()
     Guardian g;
     if (gIdx >= 0 && gIdx < gameData->guardians.size())
         g = gameData->guardians[gIdx];
-    Raid r(u, e, g, raidSpeed);
+    Raid r(u, e, g, gameData->speed);
     if (r.normal())
     {
         cout << " > You won !" << endl;
@@ -110,7 +110,7 @@ void Game::boss()
     Guardian g;
     if (gIdx >= 0 && gIdx < gameData->guardians.size())
         g = gameData->guardians[gIdx];
-    Raid r(u, e, g, raidSpeed);
+    Raid r(u, e, g, gameData->speed);
     double totalDmg = r.boss();
     int rubyReward = totalDmg / 5000;
     rubyReward = rubyReward <= 0 ? 1 : rubyReward > 10 ? 10
@@ -344,7 +344,7 @@ void Game::adminMode()
         o.setOwned();
     for (Guardian &g : gameData->guardians)
         g.setOwned();
-    raidSpeed = 1000;
+    gameData->speed = 1000;
     cout << " >>> You've just accessed to Admin Mode. Get all items " << endl;
 }
 
@@ -369,7 +369,7 @@ void Game::setRaidSpeed()
     if (s == 1 || s == 2 || s == 3)
     {
         cout << " > Set speed to " << s << " successfully";
-        raidSpeed = stod(in);
+        gameData->speed = stod(in);
     }
     else
         cout << " > Speed should be from 1 to 3";

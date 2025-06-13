@@ -18,7 +18,6 @@ public:
 
 private:
     GameData *gameData;
-    double raidSpeed = 1000;
     int unitIdx = -1, gIdx = -1;
     string playerInput;
     bool gameRunning = true;
