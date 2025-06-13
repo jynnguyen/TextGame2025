@@ -19,7 +19,7 @@ Unit GameData::spawnEnemy(bool isBoss)
 {
     if (!isBoss)
     {
-        int id = rngRate(0, enemies.size());
+        int id = rng(0, enemies.size());
         Unit e((enemies[id]));
         return e;
     }

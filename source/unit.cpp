@@ -251,7 +251,7 @@ void Unit::ultimate(Unit &target)
         {
             cout << "Domain Expansion ! ";
             stats.buffBase(StatsCal::BaseType::ATK, max_atk, 2, name);
-            stats.buffMod(StatsCal::ModType::DMGBONUS, 0.3 , 2, name);
+            stats.buffMod(StatsCal::ModType::DMGBONUS, 0.4 , 2, name);
         }
         else if (id == 4)
         {
@@ -290,13 +290,13 @@ void Unit::ultimate(Unit &target)
         else if (id == 8)
         {
             cout << "Speed of Light";
-            stats.buffAgility(StatsCal::AgilityType::EVADE, 0.35, 2, name);
+            stats.buffAgility(StatsCal::AgilityType::EVADE, 0.3, 2, name);
             stats.mod.dmgBonus += 0.05;
         }
         else if (id == 9)
         {
             cout << "Your soul is mine";
-            totalDmg = attack(target, 0.5, true, StatsCal::BaseType::HP);
+            totalDmg = attack(target, 0.4, true, StatsCal::BaseType::HP);
             heal(totalDmg * 0.2);
         }
         else if (id == 10)

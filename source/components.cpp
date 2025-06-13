@@ -75,6 +75,8 @@ void Modifiers::reset()
 {
     penetration = 0;
     dmgBonus = 0;
+    ultDmgBonus = 0;
+    dotDmgBonus = 0;
 }
 
 string Modifiers::info()
@@ -206,6 +208,13 @@ string Effect::info()
     return ss.str();
 }
 
+void Effect::reset()
+{
+    dot = 0;
+    cc = 0;
+    dmg = 0;
+}
+
 Agility &Agility::operator+=(const Agility &other)
 {
     evade += other.evade;
@@ -225,4 +234,10 @@ string Agility::info()
     if (evade > 1e-10 || accuracy > 1e-10)
         ss << endl;
     return ss.str();
+}
+
+void Agility::reset()
+{
+    evade = 0;
+    accuracy = 0;
 }

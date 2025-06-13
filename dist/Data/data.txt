@@ -1,5 +1,4 @@
 Speed=1000
-
 //Unit=NAME,{HP,ATK,DEF},ENERGY
 Unit=Cid,{290,55,20},60
 Unit=Goku,{270,50,30},90
@@ -7,13 +6,13 @@ Unit=Luffy,{310,55,20},90
 Unit=Gojo,{270,60,20},100
 Unit=Hakari,{280,60,20},55
 Unit=Kaido,{300,40,40},60
-Unit=Mydei,{460,35,0},160
+Unit=Mydei,{350,35,0},150
 Unit=Archer,{280,35,25},30
 Unit=Kizaru,{310,60,15},60
-Unit=Big Mom,{300,30,15},60
-Unit=Kafka,{320,65,25},25
+Unit=Big Mom,{320,30,15},60
+Unit=Kafka,{310,65,25},25
 Unit=Natsu,{280,65,15},90
-Unit=Saber,{340,45,15},150
+Unit=Saber,{310,40,20},150
 
 Enemy=Slime,{270,45,25},60
 Enemy=Goblin,{280,40,30},100

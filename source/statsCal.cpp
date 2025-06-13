@@ -1,6 +1,6 @@
 #include "StatsCal.hpp"
 
-StatsCal::StatsCal(int unitType, int level, BaseStats b, CritStats cr):base(b),crit(cr)
+StatsCal::StatsCal(int unitType, int level, BaseStats b, CritStats cr) : base(b), crit(cr)
 {
     resistance = Effect();
     hitRate = Effect();
@@ -14,8 +14,7 @@ void StatsCal::update(int level)
     coeff = 1;
     coeff *= pow(baseCoeff, level);
     setBase();
-    mod.reset();
-    crit.reset();
+    mod.reset(), crit.reset(), resistance.reset(), hitRate.reset(), agility.reset();
     baseBuffs.clear(), modBuffs.clear(), critBuffs.clear(), resBuffs.clear(), ehrBuffs.clear(), agiBuffs.clear();
 }
 
@@ -53,8 +52,8 @@ bool StatsCal::effectHit(StatsCal &target, EffectType type)
 double StatsCal::getFinalDmg(BaseType scaleOn) const
 {
     double dmg = (scaleOn == BaseType::ATK) ? base.atk : (scaleOn == BaseType::HP) ? base.maxHp
-                                                      : (scaleOn == BaseType::DEF)  ? base.def
-                                                                                    : 0;
+                                                     : (scaleOn == BaseType::DEF)  ? base.def
+                                                                                   : 0;
     dmg = dmg * (1 + mod.dmgBonus);
     if (isCrit())
         dmg *= (1 + crit.dmg);

@@ -101,6 +101,7 @@ public:
     Effect(double dm = 0, double c = 0, double dt = 0) : dmg(dm), cc(c), dot(dt) {}
     Effect &operator+=(const Effect &other);
     string info() override;
+    void reset();
 };
 
 class Agility : public Components
@@ -111,4 +112,5 @@ public:
     Agility(double e = 0, double ac = 0) : evade(e), accuracy(ac) {}
     Agility &operator+=(const Agility &other);
     string info() override;
+    void reset();
 };
