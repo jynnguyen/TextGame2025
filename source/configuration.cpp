@@ -11,6 +11,11 @@ Configuration::Configuration(const string &fileName)
         while (getline(asset, line))
         {
             removeSpace(line);
+            if (line.find("//") == 0)
+            {
+                cout << " - Loading " << line.substr(line.find("//") + 2, line.find("=") - line.find("//") - 2) << "..." << endl;
+                continue;
+            }
             loadAsset(line);
         }
     }
@@ -49,14 +54,12 @@ void Configuration::loadAsset(const string &str)
 
 void Configuration::loadUnit(const string &str, string type)
 {
-    char nameC[50];
+    char name[50];
     string toRead = type == "unit" ? "Unit=%49[^,],{%lf,%lf,%lf},%lf" : "Enemy=%49[^,],{%lf,%lf,%lf},%lf";
     double hp, atk, def, energy;
-    int count = sscanf(str.c_str(), toRead.c_str(), nameC, &hp, &atk, &def, &energy);
-    string name = nameC;
+    int count = sscanf(str.c_str(), toRead.c_str(), name, &hp, &atk, &def, &energy);
     int typeInNumber = (type == "unit") ? 0 : 1;
     Unit u(typeInNumber, name, {hp, atk, def}, energy);
-    u.update();
     int size = (type == "unit") ? units.size() : enemies.size();
     if (size % 10 == 0 && size != 0)
         u.setRarity("UR");
@@ -76,31 +79,24 @@ void Configuration::loadUnit(const string &str, string type)
 
 void Configuration::loadOrb(const string &str)
 {
-    string name;
-    double hp = 0, atk = 0, def = 0, cr = 0, cd = 0, pen = 0, re = 0, bonus = 0, evade = 0;
+    char n[50];
+    double hp, atk, def;
+    double cr, cd;
+    double dmgbonus, pen, ultbonus, dotbonus;
+    double res_cc, res_dot, res_dmg;
+    double hr_cc, hr_dot, hr_dmg;
+    double evade, accuracy;
 
-    int start = str.find('=') + 1;
-    int end = str.find(',', start);
-    name = str.substr(start, end - start);
-
-    start = str.find('{', end) + 1;
-    end = str.find('}', start);
-    string stats1 = str.substr(start, end - start);
-    sscanf(stats1.c_str(), "%lf,%lf,%lf", &hp, &atk, &def);
-
-    start = str.find('{', end) + 1;
-    end = str.find('}', start);
-    string stats2 = str.substr(start, end - start);
-    sscanf(stats2.c_str(), "%lf,%lf", &cr, &cd);
-
-    start = str.find('{', end) + 1;
-    end = str.find('}', start);
-    string stats3 = str.substr(start, end - start);
-    sscanf(stats3.c_str(), "%lf,%lf,%lf,%lf", &pen, &re, &bonus, &evade);
-
-    hp /= 100, atk /= 100, def /= 100, cr /= 100, cd /= 100, pen /= 100, re /= 100, bonus /= 100, evade /= 100;
-
-    Orb orb(name, {hp, atk, def}, {cr, cd}, {pen, re, bonus, evade});
+    int matched = sscanf(str.c_str(),
+                         "Orb=%49[^,],BASE{%lf,%lf,%lf},CRIT{%lf,%lf},MOD{%lf,%lf,%lf,%lf},RES{%lf,%lf,%lf},HITRATE{%lf,%lf,%lf},AGI{%lf,%lf}",
+                         n,
+                         &hp, &atk, &def,
+                         &cr, &cd,
+                         &dmgbonus, &pen, &ultbonus, &dotbonus,
+                         &res_cc, &res_dot, &res_dmg,
+                         &hr_cc, &hr_dot, &hr_dmg,
+                         &evade, &accuracy);
+    Orb orb(n, BaseStats(hp / 100, atk / 100, def / 100), CritStats(cr / 100, cd / 100), Modifiers(dmgbonus / 100, pen / 100, ultbonus / 100, dotbonus / 100), Effect(res_cc / 100, res_dot / 100, res_dmg / 100), Effect(hr_cc / 100, hr_dot / 100, hr_dmg / 100), Agility(evade / 100, accuracy / 100));
     int size = orbs.size();
     orb.setID(size);
     if (size % 10 == 0 && size != 0)
@@ -115,7 +111,6 @@ void Configuration::loadGuardian(const string &str)
     char name[50];
     int rPA, id = guardians.size();
     sscanf(str.c_str(), "Guardian=%49[^,],%d", &name, &rPA);
-    string typeStr(name);
     guardians.emplace_back(Guardian(name, id, rPA));
 }
 
@@ -178,10 +173,6 @@ void Configuration::loadSave(const string &str)
 
 void Configuration::clearAll()
 {
-    units = vector<Unit>();
-    enemies = vector<Unit>();
-    orbs = vector<Orb>();
-    guardians = vector<Guardian>();
 }
 
 void Configuration::saveAll()

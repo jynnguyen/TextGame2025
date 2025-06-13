@@ -1,5 +1,10 @@
 #include "Raid.hpp"
 
+Raid::Raid(Unit deploy, Unit e, Guardian g, double s) : onDeploy(deploy), enemy(e), guardian(g), speed(s)
+{
+}
+
+
 bool Raid::normal()
 {
     cout << " == NORMAL RAID == " << endl;

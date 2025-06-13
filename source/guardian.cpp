@@ -4,6 +4,7 @@ void Guardian::info()
 {
     cout << string(2, '-') << name << " (Owned: " << (owned ? "Yes" : "No");
     cout << ")" << string(2, '-') << endl;
+    cout << "Rounds Per Action: "<<roundPerAction<<endl;
 }
 bool Guardian::getOwned() const
 {
@@ -27,7 +28,7 @@ void Guardian::setOwned()
 
 void Guardian::skill(const int &currentRound, Unit &ally, Unit &enemy)
 {
-    if (currentRound % roundPerAction != 0 || roundPerAction > 50)
+    if (roundPerAction == 0 || currentRound % roundPerAction != 0)
         return;
     cout << " >> Guardian '" << name << "' activates skill " << endl;
     switch (id)
@@ -39,10 +40,10 @@ void Guardian::skill(const int &currentRound, Unit &ally, Unit &enemy)
         ally.energy.current += 30;
         break;
     case 2:
-        ally.stats.buffBase(StatsCal::BaseType::DEF, 0.8 * ally.stats.base.maxDef, 3, name);
+        ally.stats.buffBase(StatsCal::BaseType::DEF, 0.5 * ally.stats.base.maxDef, 4, name);
         break;
     case 3:
-        ally.applyDot(enemy,5,0.2);
+        ally.applyDot(enemy,10,0.1);
         break;
     case 4:
         ally.stats.mod.dmgBonus += 0.08;

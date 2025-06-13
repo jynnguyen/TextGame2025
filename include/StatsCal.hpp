@@ -19,18 +19,8 @@ public:
 class StatsCal
 {
 public:
-    StatsCal(int unitType, int level = 0, BaseStats b = {1,1,1} , CritStats cr ={0,0}, Modifiers m={0,0,0,0}) : base(b), crit(cr), mod(m)
-    {
-        baseCoeff = (unitType == 0)?1.05:1.08;
-        update(level);
-    }
-    enum class ModType
-    {
-        PENETRATION,
-        DMGBONUS,
-        DMGREDUCTION,
-        EVADE
-    };
+    StatsCal(int unitType, int level = 0, BaseStats b = {1, 1, 1}, CritStats cr = {0.05, 0.5});
+
     enum class BaseType
     {
         HP,
@@ -42,26 +32,60 @@ public:
         RATE,
         DMG
     };
+    enum class ModType
+    {
+        DMGBONUS,
+        PENETRATION,
+        ULTDMGBONUS,
+        DOTDMGBONUS
+    };
+    enum class EffectType
+    {
+        CC,
+        DOT,
+        DMG
+    };
+    enum class AgilityType
+    {
+        EVADE,
+        ACCURACY
+    };
     void setBase();
     void buffBase(BaseType type, double value, int duration = 99, string source = "", bool stackable = false);
     void buffMod(ModType type, double value, int duration = 99, string source = "", bool stackable = false);
     void buffCrit(CritType type, double value, int duration = 99, string source = "", bool stackable = false);
+    void buffEffect(EffectType type, double value, int duration = 99, string source = "", bool isResistance = false, bool stackable = false);
+    void buffAgility(AgilityType type, double value, int duration = 99, string source = "", bool stackable = false);
     void updateBuffs();
     void update(int level);
+
     double getHpLost();
-    double getFinalDmg(string scaleOn = "ATK") const;
-    double getFinalDef(const StatsCal &other, double K = 100) const;
+    bool effectHit(StatsCal& other, EffectType type);
+    bool isEvade(StatsCal& other);
+    double getFinalDmg(BaseType scaleOn = BaseType::ATK) const;
+    double getFinalDef(const StatsCal& other, double K = 50) const;
 
     double coeff, baseCoeff;
     BaseStats base;
     Modifiers mod;
     CritStats crit;
+    Effect resistance;
+    Effect hitRate;
+    Agility agility;
+
+private:
     vector<TimeModifier<BaseType>> baseBuffs;
     vector<TimeModifier<ModType>> modBuffs;
     vector<TimeModifier<CritType>> critBuffs;
+    vector<TimeModifier<EffectType>> resBuffs;
+    vector<TimeModifier<EffectType>> ehrBuffs;
+    vector<TimeModifier<AgilityType>> agiBuffs;
 
     bool isCrit() const;
     void addBaseBuff(BaseType type, double value);
     void addModBuff(ModType type, double value);
-    void addCritBuff(CritType type,double value);
+    void addCritBuff(CritType type, double value);
+    void addEResBuff(EffectType type, double value);
+    void addEhrBuff(EffectType type, double value);
+    void addAgiBuff(AgilityType type, double value);
 };

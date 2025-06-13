@@ -1,5 +1,10 @@
 #include "Orb.hpp"
 
+Orb::Orb(string n , BaseStats b, CritStats cr, Modifiers m, Effect res, Effect hr, Agility agi) :
+name(n),base(b),crit(cr),mod(m),resistance(res),hitRate(hr),agility(agi)
+{
+}
+
 void Orb::setOwned()
 {
     owned = true;

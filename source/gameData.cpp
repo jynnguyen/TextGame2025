@@ -1,9 +1,9 @@
 #include "GameData.hpp"
 
-GameData::GameData(const string &fileName) : config(fileName)
+GameData::GameData(const string &fileName):config(fileName)
 {
     gold = config.gold, ruby = config.ruby;
-    level.set(config.level);
+    level = config.level;
     level.setCurrentExp(config.currentExp);
     for (const Unit &u : config.units)
         units.emplace_back(u);
@@ -13,16 +13,19 @@ GameData::GameData(const string &fileName) : config(fileName)
         orbs.emplace_back(o);
     for (const Guardian &g : config.guardians)
         guardians.emplace_back(g);
-    config.clearAll();
 }
 
 Unit GameData::spawnEnemy(bool isBoss)
 {
     if (!isBoss)
-        return enemies[rng(0, enemies.size() - 1)];
+    {
+        int id = rngRate(0, enemies.size());
+        Unit e((enemies[id]));
+        return e;
+    }
     else
     {
-        Unit e = Unit(1,"WORLD DEVIL", {10000000, 50, 50}, 250);
+        Unit e(1, "WORLD DEVIL", {10000000, 50, 50}, 250);
         e.setType(1), e.setID(666);
         return e;
     }
@@ -46,33 +49,33 @@ void GameData::inventory(string type)
     {
         printInventory<Unit>(
             units, "UNIT",
-            [](const Unit &u)
+            [](const Unit& u)
             { return u.getId(); },
-            [](const Unit &u)
+            [](const Unit& u)
             { return u.getName(); },
-            [](const Unit &u)
+            [](const Unit& u)
             { return u.getOwned(); });
     }
     else if (type == "orb" || type == "o")
     {
         printInventory<Orb>(
             orbs, "ORB",
-            [](const Orb &o)
-            { return o.getId(); },
-            [](const Orb &o)
+            [](const Orb& o)
+            { return o.getId(); }, 
+            [](const Orb& o)
             { return o.getName(); },
-            [](const Orb &o)
+            [](const Orb& o)
             { return o.getOwned(); });
     }
     else if (type == "guardian" || "g")
     {
         printInventory<Guardian>(
             guardians, "GUARDIAN",
-            [](const Guardian &g)
+            [](const Guardian& g)
             { return g.getId(); },
-            [](const Guardian &g)
+            [](const Guardian& g)
             { return g.getName(); },
-            [](const Guardian &g)
+            [](const Guardian& g)
             { return g.getOwned(); });
     }
     else
@@ -83,7 +86,8 @@ void GameData::inventory(string type)
 
 void GameData::setUnitLevel()
 {
-    for (Unit &u : units){
+    for (Unit& u : units)
+    {
         u.setLevel(level.get());
     }
 }

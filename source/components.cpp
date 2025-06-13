@@ -12,7 +12,7 @@ void BaseStats::info()
     cout << "HP: " << hp << " | ATK: " << atk << " | DEF: " << def << endl;
 }
 
-BaseStats &BaseStats::operator*=(double num)
+BaseStats& BaseStats::operator*=(double num)
 {
     maxAtk *= num;
     maxHp *= num;
@@ -62,31 +62,29 @@ void Modifiers::reset()
 {
     penetration = 0;
     dmgBonus = 0;
-    dmgReduction = 0;
-    evade = 0.01;
 }
 
 void Modifiers::info()
 {
+    if (dmgBonus > 0)
+        cout << "Dmg Bonus: " << dmgBonus * 100 << "% | ";
     if (penetration > 0)
         cout << "Penetration: " << penetration * 100 << "% | ";
-    if (dmgReduction > 0)
-        cout << "Damage Reduction: " << dmgReduction * 100 << "% | ";
-    if (dmgBonus > 0)
-        cout << "Damage Bonus: " << dmgBonus * 100 << "% | ";
-    if (evade > 0)
-        cout << "Evade: " << evade * 100 << "% | ";
-    if (penetration > 0 || dmgReduction > 0 || dmgBonus > 0 || evade > 0)
+    if (ultDmgBonus > 0)
+        cout << "Ult Dmg Bonus: " << ultDmgBonus * 100 << "% | ";
+    if (dotDmgBonus > 0)
+        cout << "Dot Dmg Bonus: " << dotDmgBonus * 100 << "% | ";
+    if (penetration > 0 || ultDmgBonus > 0 || dmgBonus > 0 || dotDmgBonus > 0)
         cout << endl;
     cout << endl;
 }
 
-BaseStats BaseStats::operator+(const BaseStats &other) const
+BaseStats BaseStats::operator+(const BaseStats& other) const
 {
     return BaseStats(hp + other.hp, atk + other.atk, def + other.def);
 }
 
-BaseStats &BaseStats::operator+=(const BaseStats &other)
+BaseStats& BaseStats::operator+=(const BaseStats& other)
 {
     maxHp += other.maxHp;
     maxAtk += other.maxAtk;
@@ -94,12 +92,12 @@ BaseStats &BaseStats::operator+=(const BaseStats &other)
     return *this;
 }
 
-BaseStats BaseStats::operator-(const BaseStats &other) const
+BaseStats BaseStats::operator-(const BaseStats& other) const
 {
     return BaseStats(hp - other.hp, atk - other.atk, def - other.def);
 }
 
-BaseStats &BaseStats::operator=(const BaseStats &other)
+BaseStats& BaseStats::operator=(const BaseStats& other)
 {
     if (this != &other)
     {
@@ -116,21 +114,21 @@ BaseStats &BaseStats::operator=(const BaseStats &other)
     return *this;
 }
 
-CritStats &CritStats::operator+=(const CritStats &other)
+CritStats& CritStats::operator+=(const CritStats& other)
 {
     rate += other.rate;
     dmg += other.dmg;
     return *this;
 }
 
-CritStats &CritStats::operator-=(const CritStats &other)
+CritStats& CritStats::operator-=(const CritStats& other)
 {
     rate -= other.rate;
     dmg -= other.dmg;
     return *this;
 }
 
-CritStats &CritStats::operator=(const CritStats &other)
+CritStats& CritStats::operator=(const CritStats& other)
 {
     if (this != &other)
     {
@@ -140,32 +138,46 @@ CritStats &CritStats::operator=(const CritStats &other)
     return *this;
 }
 
-Modifiers &Modifiers::operator+=(const Modifiers &other)
+Modifiers& Modifiers::operator+=(const Modifiers& other)
 {
     penetration += other.penetration;
-    dmgReduction += other.dmgReduction;
+    ultDmgBonus += other.ultDmgBonus;
     dmgBonus += other.dmgBonus;
-    evade += other.evade;
+    dotDmgBonus += other.dotDmgBonus;
     return *this;
 }
 
-Modifiers &Modifiers::operator-=(const Modifiers &other)
+Modifiers& Modifiers::operator-=(const Modifiers& other)
 {
     penetration -= other.penetration;
-    dmgReduction -= other.dmgReduction;
+    ultDmgBonus -= other.ultDmgBonus;
     dmgBonus -= other.dmgBonus;
-    evade -= other.evade;
+    dotDmgBonus -= other.dotDmgBonus;
     return *this;
 }
 
-Modifiers &Modifiers::operator=(const Modifiers &other)
+Modifiers& Modifiers::operator=(const Modifiers& other)
 {
     if (this != &other)
     {
         penetration = other.penetration;
-        dmgReduction = other.dmgReduction;
+        ultDmgBonus = other.ultDmgBonus;
         dmgBonus = other.dmgBonus;
-        evade = other.evade;
+        dotDmgBonus = other.dotDmgBonus;
     }
+    return *this;
+}
+
+Effect& Effect::operator+=(const Effect& other)
+{
+    dot += other.dot;
+    cc += other.cc;
+    dmg += other.dmg;
+    return *this;
+}
+
+Agility& Agility::operator+=(const Agility& other){
+    evade += other.evade;
+    accuracy += other.accuracy;
     return *this;
 }

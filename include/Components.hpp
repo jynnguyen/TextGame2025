@@ -20,11 +20,11 @@ public:
     void reset();
     void info() override;
     BaseStats multiply(double num) const;
-    BaseStats operator+(const BaseStats &other) const;
-    BaseStats &operator*=(double num);
-    BaseStats &operator+=(const BaseStats &other);
-    BaseStats operator-(const BaseStats &other) const;
-    BaseStats &operator=(const BaseStats &other);
+    BaseStats operator+(const BaseStats& other) const;
+    BaseStats& operator*=(double num);
+    BaseStats& operator+=(const BaseStats& other);
+    BaseStats operator-(const BaseStats& other) const;
+    BaseStats& operator=(const BaseStats& other);
 
     double base_hp,
         base_atk,
@@ -56,9 +56,9 @@ public:
     void reset();
     void info() override;
 
-    CritStats &operator+=(const CritStats &other);
-    CritStats &operator-=(const CritStats &other);
-    CritStats &operator=(const CritStats &other);
+    CritStats& operator+=(const CritStats& other);
+    CritStats& operator-=(const CritStats& other);
+    CritStats& operator=(const CritStats& other);
 
 private:
     double base_rate = 0.05, base_dmg = 0.5;
@@ -77,17 +77,36 @@ public:
 class Modifiers : public Components
 {
 public:
-    double penetration = 0;
-    double dmgReduction = 0;
     double dmgBonus = 0;
-    double evade = 0.01;
+    double penetration = 0;
+    double ultDmgBonus = 0;
+    double dotDmgBonus = 0;
+
     Modifiers() = default;
-    Modifiers(double pen, double red, double bon, double ev)
-        : penetration(pen), dmgReduction(red), dmgBonus(bon), evade(ev) {}
+    Modifiers(double bon, double pen, double ultBon, double dotBon)
+        : penetration(pen), dmgBonus(bon), ultDmgBonus(ultBon), dotDmgBonus(dotBon) {}
     void reset();
     void info() override;
-    Modifiers &operator+=(const Modifiers &other);
-    Modifiers &operator-=(const Modifiers &other);
-    Modifiers &operator=(const Modifiers &other);
+    Modifiers& operator+=(const Modifiers& other);
+    Modifiers& operator-=(const Modifiers& other);
+    Modifiers& operator=(const Modifiers& other);
 };
 
+class Effect
+{
+public:
+    double dot = 0;
+    double cc = 0;
+    double dmg = 0;
+    Effect(double dmg = 0, double cc = 0, double dot = 0) : dmg(dmg), cc(cc), dot(dot) {}
+    Effect& operator+=(const Effect& other);
+};
+
+class Agility
+{
+public:
+    double evade;
+    double accuracy;
+    Agility(double e = 0, double ac = 0) : evade(e), accuracy(ac) {}
+    Agility& operator+=(const Agility& other);
+};

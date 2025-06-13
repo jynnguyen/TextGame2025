@@ -4,14 +4,15 @@
 #include "Guardian.hpp"
 #include "Functions.hpp"
 
-class Raid{ 
-    public:
-    Raid(Unit deploy = Unit(0), Unit e = Unit(1),Guardian g = Guardian(), double s = 1):onDeploy(deploy),enemy(e),guardian(g),speed(s){}
+class Raid
+{
+public:
+    Raid(Unit deploy = Unit(0), Unit e = Unit(1), Guardian g = Guardian(), double s = 1);
     bool normal();
     double boss();
-    void takeAction(Unit& attacker, Unit& target);
+    void takeAction(Unit &attacker, Unit &target);
 
-    private:
+private:
     Unit onDeploy;
     Unit enemy;
     Guardian guardian;

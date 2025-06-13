@@ -1,6 +1,14 @@
 #include "Unit.hpp"
 #include "Functions.hpp"
 
+Unit::Unit(int t, string n, BaseStats b, Energy e) : type(t), name(n), energy(e),stats(t,level,b)
+{
+    orb = Orb();
+    update();
+}
+
+
+
 void Unit::info()
 {
     cout << string(2, '-') << name << " (Rarity: " << rarity << " - Owned: " << (owned ? "Yes" : "No");
@@ -62,10 +70,15 @@ bool Unit::isEnoughEnergy()
     return energy.current >= energy.max;
 }
 
-bool Unit::isEvaded()
+bool Unit::isEvaded(Unit& other)
 {
-    double noEvade = (1 - stats.mod.evade) < 0 ? 0 : 1 - stats.mod.evade;
-    return rngRate(noEvade, stats.mod.evade) == 1;
+    if (stats.isEvade(other.stats))
+    {
+        cout << " > " << name << " evaded the attack" << endl;
+        energy.current += energy.regen / 5;
+        return true;
+    }
+    return false;
 }
 
 void Unit::setID(int i)
@@ -90,19 +103,16 @@ string Unit::getRarity()
     return rarity;
 }
 
-double Unit::dmgCal(const Unit &target, double scale, string scaleOn)
+double Unit::dmgCal(const Unit& target, double scale, StatsCal::BaseType scaleOn)
 {
     double finalDmg = stats.getFinalDmg(scaleOn) * scale * target.stats.getFinalDef(this->stats);
     return finalDmg;
 }
 
-double Unit::attack(Unit &target, double scale, double energyRegen, string scaleOn)
+double Unit::attack(Unit& target, double scale, double energyRegen, StatsCal::BaseType scaleOn)
 {
-    if (target.isEvaded())
-    {
-        cout << " > " << target.name << " evades the attack" << endl;
+    if (target.isEvaded(*this))
         return 0;
-    }
     double dmg = dmgCal(target, scale, scaleOn);
     cout << " > " << name << " dealt " << dmg << "_dmg to " << target.name << endl;
     target.stats.base.hp -= dmg;
@@ -113,29 +123,38 @@ double Unit::attack(Unit &target, double scale, double energyRegen, string scale
     return dmg;
 }
 
-
-void Unit::applyCC(Unit &target, int duration)
+void Unit::applyCC(Unit& target, int duration)
 {
+    if (!stats.effectHit(target.stats, StatsCal::EffectType::CC))
+    {
+        cout << " > " << target.name << " resists Crowd Control" << endl;
+        return;
+    }
     cout << " > " << name << " stuns " << target.name << " for " << duration << " turns" << endl;
     target.crowdControl.is = true;
     target.crowdControl.duration = duration;
 }
 
-void Unit::applyDot(Unit &target, int duration, double scale)
+void Unit::applyDot(Unit& target, int duration, double scale)
 {
+    if (!stats.effectHit(target.stats, StatsCal::EffectType::DOT))
+    {
+        cout << " > " << target.name << " resists DOT" << endl;
+        return;
+    }
     cout << " > " << name << " applies DOT dmg to " << target.name << " for " << duration << " turns" << endl;
     target.dots.emplace_back(Status(true, duration, scale));
 }
 
-double Unit::dotAttack(Unit &target, const Status &dot)
+double Unit::dotAttack(Unit& target, const Status &dot)
 {
-    double dmg = stats.getFinalDmg()*dot.scale*target.stats.getFinalDef((*this).stats);
+    double dmg = stats.getFinalDmg() * dot.scale * target.stats.getFinalDef(this->stats);
     target.stats.base.hp -= dmg;
     cout << " > " << target.name << " receives " << dmg << " DOT dmg from " << name << endl;
     return dmg;
 }
 
-double Unit::trueAttack(Unit &target, double dmg)
+double Unit::trueAttack(Unit& target, double dmg)
 {
     target.stats.base.hp -= dmg;
     target.stats.base.hp = target.stats.base.hp < 0 ? 0 : target.stats.base.hp;
@@ -150,7 +169,7 @@ bool Unit::isCced()
     return crowdControl.is;
 }
 
-bool Unit::isDotted(Unit &dotDmgDealer)
+bool Unit::isDotted(Unit& dotDmgDealer)
 {
     for (Status &dot : dots)
     {
@@ -163,7 +182,7 @@ bool Unit::isDotted(Unit &dotDmgDealer)
     return isAlive();
 }
 
-bool Unit::updateBadStatus(Unit &dotDmgDealer)
+bool Unit::updateBadStatus(Unit& dotDmgDealer)
 {
     if (!isDotted(dotDmgDealer))
     {
@@ -181,7 +200,7 @@ bool Unit::updateBadStatus(Unit &dotDmgDealer)
     return false;
 }
 
-void Unit::ultimate(Unit &target)
+void Unit::ultimate(Unit& target)
 {
     cout << " > " << name << " activates *ULTIMATE*" << endl;
     double max_hp = stats.base.maxHp, max_atk = stats.base.maxAtk, max_def = stats.base.maxDef;
@@ -193,27 +212,27 @@ void Unit::ultimate(Unit &target)
         {
             cout << "I am Atomic !";
             stats.mod.penetration += 0.4;
-            totalDmg += attack(target, 1.8, 0);
+            totalDmg += attack(target, 2, 0);
             stats.mod.penetration -= 0.4;
         }
         else if (id == 1)
         {
             cout << "Kame kame haaaaaaaaaaa";
             stats.crit.rate += 0.95;
-            totalDmg += attack(target, 2, 0);
+            totalDmg += attack(target, 2.2, 0);
             stats.crit.rate -= 0.95;
         }
         else if (id == 2)
         {
             cout << "Galtling gunnn";
             for (int i = 0; i < 5; i++)
-                totalDmg += attack(target, 0.75, 0);
+                totalDmg += attack(target, 0.8, 0);
         }
         else if (id == 3)
         {
             cout << "Domain Expansion ! ";
             stats.buffBase(StatsCal::BaseType::ATK, max_atk, 2, name);
-            stats.buffMod(StatsCal::ModType::DMGREDUCTION, 0.3, 2, name);
+            stats.buffEffect(StatsCal::EffectType::DMG, 0.3, 2, name, true);
         }
         else if (id == 4)
         {
@@ -231,16 +250,15 @@ void Unit::ultimate(Unit &target)
         else if (id == 5)
         {
             cout << "Dragon transformation";
-            stats.buffBase(StatsCal::BaseType::ATK, stats.base.def * 5, 1, name);
-            stats.buffMod(StatsCal::ModType::DMGREDUCTION, 0.3, 1, name);
-            stats.buffBase(StatsCal::BaseType::DEF, -stats.base.def, 1, name);
+            stats.buffBase(StatsCal::BaseType::ATK, stats.base.def * 2, 2, name);
+            stats.buffEffect(StatsCal::EffectType::DMG, 0.1, 2, name, true);
         }
         else if (id == 6)
         {
             cout << "Bloodlust activates";
-            double hpLost = max_hp - stats.base.hp;
-            heal(hpLost);
-            stats.base.atk += (hpLost * 0.1 + max_hp * 0.15);
+            double lost = stats.getHpLost();
+            heal(lost);
+            stats.base.atk += (lost * 0.1 + max_hp * 0.15);
             energy.max = 999999;
         }
 
@@ -253,13 +271,13 @@ void Unit::ultimate(Unit &target)
         else if (id == 8)
         {
             cout << "Speed of Light";
-            stats.buffMod(StatsCal::ModType::EVADE, 0.5, 2, name);
+            stats.buffAgility(StatsCal::AgilityType::EVADE, 0.5, 2, name);
             stats.mod.dmgBonus += 0.05;
         }
         else if (id == 9)
         {
             cout << "Your soul is mine";
-            totalDmg = attack(target,0.5,0,"HP");
+            totalDmg = attack(target, 0.5, 0, StatsCal::BaseType::HP);
             heal(totalDmg * 0.2);
         }
         else if (id == 10)
@@ -273,14 +291,14 @@ void Unit::ultimate(Unit &target)
         else if (id == 11)
         {
             cout << "Dragon Flame";
-            totalDmg += attack(target, 1.25, 0);
-            applyDot(target, 3, 0.75);
+            totalDmg += attack(target, 1.3, 0);
+            applyDot(target, 3, 0.7);
         }
         else if (id == 12)
         {
             cout << "Excaliburr !";
-            stats.buffMod(StatsCal::ModType::DMGBONUS, 0.25, 5, name);
-            attack(target, 3, 0);
+            stats.buffMod(StatsCal::ModType::DMGBONUS, 0.2, 5, name);
+            attack(target, 3.5, 0);
         }
 
         break;
@@ -288,7 +306,7 @@ void Unit::ultimate(Unit &target)
         if (id == 0)
         {
             cout << "Slime shoot !";
-            totalDmg += attack(target, 1.7, 0);
+            totalDmg += attack(target, 1.8, 0);
         }
         else if (id == 1)
         {
@@ -300,15 +318,15 @@ void Unit::ultimate(Unit &target)
         else if (id == 2)
         {
             cout << "Golem strengthens !";
-            stats.buffBase(StatsCal::BaseType::ATK, stats.base.def * 0.4, 2, name);
-            stats.buffBase(StatsCal::BaseType::DEF, max_def * 0.8, 2, name);
+            stats.buffBase(StatsCal::BaseType::ATK, stats.base.def * 0.5, 2, name);
+            stats.buffBase(StatsCal::BaseType::DEF, max_def * 1, 2, name);
         }
         else if (id == 3)
         {
             cout << "Skeleton focuses !";
             stats.buffCrit(StatsCal::CritType::RATE, 0.95, 1, name);
             stats.buffCrit(StatsCal::CritType::DMG, 1.5, 1, name);
-            stats.buffMod(StatsCal::ModType::DMGREDUCTION, 0.2, 1, name);
+            stats.buffEffect(StatsCal::EffectType::DMG, 0.2, 1, name, true);
         }
         else if (id == 4)
         {
@@ -340,10 +358,13 @@ void Unit::setLevel(int lv)
 
 void Unit::applyOrb()
 {
-    BaseStats b = {stats.base.maxHp * orb.base.hp, stats.base.maxAtk * orb.base.atk,stats.base.maxDef * orb.base.def};
+    BaseStats b = BaseStats(stats.base.maxHp * orb.base.hp, stats.base.maxAtk * orb.base.atk, stats.base.maxDef * orb.base.def);
     stats.base += b;
     stats.crit += orb.crit;
     stats.mod += orb.mod;
+    stats.resistance += orb.resistance;
+    stats.hitRate += orb.hitRate;
+    stats.agility += orb.agility;
     if (id == orb.getId())
         stats.base *= 1.1;
 }

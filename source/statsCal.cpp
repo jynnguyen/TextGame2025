@@ -1,5 +1,14 @@
 #include "StatsCal.hpp"
 
+StatsCal::StatsCal(int unitType, int level, BaseStats b, CritStats cr):base(b),crit(cr)
+{
+    resistance = Effect();
+    hitRate = Effect();
+    agility = Agility();
+    baseCoeff = (unitType == 0) ? 1.05 : 1.08;
+    update(level);
+}
+
 void StatsCal::update(int level)
 {
     coeff = 1;
@@ -7,7 +16,7 @@ void StatsCal::update(int level)
     setBase();
     mod.reset();
     crit.reset();
-    baseBuffs.clear(), modBuffs.clear(), critBuffs.clear();
+    baseBuffs.clear(), modBuffs.clear(), critBuffs.clear(), resBuffs.clear(), ehrBuffs.clear(), agiBuffs.clear();
 }
 
 void StatsCal::setBase()
@@ -23,12 +32,32 @@ double StatsCal::getHpLost()
     return abs(base.maxHp) - abs(base.hp);
 }
 
-double StatsCal::getFinalDmg(string scaleOn) const
+bool StatsCal::effectHit(StatsCal &target, EffectType type)
 {
-    double dmg = (scaleOn == "ATK") ? base.atk : (scaleOn == "HP") ? base.maxHp
-                                             : (scaleOn == "DEF")  ? base.def
-                                                                   : 0;
-    dmg = dmg * (1 + mod.dmgBonus) * ((isCrit()) ? (1 + crit.dmg) : 1);
+    if (type == EffectType::CC)
+    {
+        double hit = 1 + hitRate.cc - target.resistance.cc;
+        limit(hit, 0, 1);
+        return rngRate(1 - hit, hit) == 1;
+    }
+    else if (type == EffectType::DOT)
+    {
+        double hit = hitRate.dot - resistance.dot;
+        limit(hit, 0, 1);
+        return rngRate(1 - hit, hit) == 1;
+    }
+    else
+        return false;
+}
+
+double StatsCal::getFinalDmg(BaseType scaleOn) const
+{
+    double dmg = (scaleOn == BaseType::ATK) ? base.atk : (scaleOn == BaseType::HP) ? base.maxHp
+                                                      : (scaleOn == BaseType::DEF)  ? base.def
+                                                                                    : 0;
+    dmg = dmg * (1 + mod.dmgBonus);
+    if (isCrit())
+        dmg *= (1 + crit.dmg);
     return dmg;
 }
 
@@ -37,18 +66,30 @@ double StatsCal::getFinalDef(const StatsCal &other, double K) const
     double pen = max(0.0, 1.0 - other.mod.penetration);
     double def = base.def * pen;
     double denominator = def + K * coeff;
+    double dmgReduction = (1.0 - resistance.dmg + hitRate.dmg);
+    limit(dmgReduction, 0, 1);
 
     if (denominator <= 0.0)
         return 0.0;
 
-    double reduceDmg = (1.0 - def / denominator) * (1.0 - mod.dmgReduction);
+    double reduceDmg = (1.0 - def / denominator) * dmgReduction;
     return reduceDmg;
 }
 
 bool StatsCal::isCrit() const
 {
     double critHit = (crit.rate > 1) ? 1 : crit.rate;
-    return rngRate(1 - critHit, critHit) == 1;
+    bool result = rngRate(1.0 - critHit, critHit) == 1;
+    if (result)
+        cout << " Critical Hit !" << endl;
+    return result;
+}
+
+bool StatsCal::isEvade(StatsCal &other)
+{
+    double evade = agility.evade - other.agility.accuracy;
+    limit(evade, 0, 1);
+    return rngRate(1.0 - evade, evade) == 1;
 }
 
 void StatsCal::buffBase(BaseType type, double value, int duration, string source, bool stackable)
@@ -123,6 +164,81 @@ void StatsCal::buffCrit(CritType type, double value, int duration, string source
     critBuffs.emplace_back(type, value, duration, source);
 }
 
+void StatsCal::buffEffect(EffectType type, double value, int duration, string source, bool isResistance, bool stackable)
+{
+    if (!stackable)
+    {
+        if (isResistance)
+        {
+            for (TimeModifier<EffectType> &buff : resBuffs)
+            {
+                if (buff.type == type && buff.source == source)
+                {
+                    if (value > buff.value)
+                    {
+                        addEResBuff(type, -buff.value);
+                        buff.value = value;
+                        addEResBuff(type, buff.value);
+                    }
+                    buff.remainingTurns = duration;
+                    return;
+                }
+            }
+        }
+        else
+        {
+            for (TimeModifier<EffectType> &buff : ehrBuffs)
+            {
+                if (buff.type == type && buff.source == source)
+                {
+                    if (value > buff.value)
+                    {
+                        addEhrBuff(type, -buff.value);
+                        buff.value = value;
+                        addEhrBuff(type, buff.value);
+                    }
+                    buff.remainingTurns = duration;
+                    return;
+                }
+            }
+        }
+    }
+    if (isResistance)
+    {
+        addEResBuff(type, value);
+        resBuffs.emplace_back(type, value, duration, source);
+    }
+    else
+    {
+        addEhrBuff(type, value);
+        ehrBuffs.emplace_back(type, value, duration, source);
+    }
+}
+
+void StatsCal::buffAgility(AgilityType type, double value, int duration, string source, bool stackable)
+{
+    if (!stackable)
+    {
+        for (TimeModifier<AgilityType> &buff : agiBuffs)
+        {
+            if (buff.type == type && buff.source == source)
+            {
+                if (value > buff.value)
+                {
+                    addAgiBuff(type, -buff.value);
+                    buff.value = value;
+                    addAgiBuff(type, buff.value);
+                }
+                buff.remainingTurns = duration;
+                return;
+            }
+        }
+    }
+
+    addAgiBuff(type, value);
+    agiBuffs.emplace_back(type, value, duration, source);
+}
+
 void StatsCal::addBaseBuff(BaseType type, double value)
 {
     switch (type)
@@ -153,14 +269,14 @@ void StatsCal::addModBuff(ModType type, double value)
         mod.dmgBonus += value;
         break;
     }
-    case ModType::DMGREDUCTION:
-        mod.dmgReduction += value;
+    case ModType::ULTDMGBONUS:
+        mod.ultDmgBonus += value;
         break;
     case ModType::PENETRATION:
         mod.penetration += value;
         break;
-    case ModType::EVADE:
-        mod.evade += value;
+    case ModType::DOTDMGBONUS:
+        mod.dotDmgBonus += value;
         break;
     default:
         break;
@@ -194,7 +310,9 @@ void StatsCal::updateBuffs()
                 it = buffs.erase(it);
             }
             else
+            {
                 ++it;
+            }
         }
     };
 
@@ -204,4 +322,57 @@ void StatsCal::updateBuffs()
            { addCritBuff(t, d); });
     update(modBuffs, [this](ModType t, double d)
            { addModBuff(t, d); });
+    update(resBuffs, [this](EffectType t, double d)
+           { addEResBuff(t, d); });
+    update(ehrBuffs, [this](EffectType t, double d)
+           { addEhrBuff(t, d); });
+    update(agiBuffs, [this](AgilityType t, double d)
+           { addAgiBuff(t, d); });
+}
+
+void StatsCal::addEResBuff(EffectType type, double value)
+{
+    switch (type)
+    {
+    case EffectType::CC:
+        resistance.cc += value;
+        break;
+    case EffectType::DMG:
+        resistance.dmg += value;
+        break;
+    case EffectType::DOT:
+        resistance.dot += value;
+        break;
+    default:
+        break;
+    }
+}
+
+void StatsCal::addEhrBuff(EffectType type, double value)
+{
+    switch (type)
+    {
+    case EffectType::CC:
+        hitRate.cc += value;
+        break;
+    case EffectType::DMG:
+        hitRate.dmg += value;
+        break;
+    case EffectType::DOT:
+        hitRate.dot += value;
+        break;
+    }
+}
+
+void StatsCal::addAgiBuff(AgilityType type, double value)
+{
+    switch (type)
+    {
+    case AgilityType::EVADE:
+        agility.evade += value;
+        break;
+    case AgilityType::ACCURACY:
+        agility.accuracy += value;
+        break;
+    }
 }

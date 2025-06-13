@@ -13,11 +13,12 @@ class Game
 
 public:
     Game(const string &fileName);
+    ~Game();
     void run();
 
 private:
-    GameData gameData;
-    double raidSpeed = 15;
+    GameData *gameData;
+    double raidSpeed = 1000;
     int unitIdx = -1, gIdx = -1;
     string playerInput;
     bool gameRunning = true;

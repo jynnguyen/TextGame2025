@@ -2,8 +2,15 @@
 #include "Functions.hpp"
 
 // GAME INIT
-Game::Game(const string &fileName) : gameData(fileName)
+Game::Game(const string &fileName)
 {
+    gameData = new GameData(fileName);
+}
+
+Game::~Game()
+{
+    if (gameData)
+        delete gameData;
 }
 
 void Game::run()
@@ -11,7 +18,7 @@ void Game::run()
     while (gameRunning)
     {
         menu();
-        gameData.save();
+        gameData->save();
     }
 }
 
@@ -40,7 +47,7 @@ void Game::handleInput()
     else if (playerInput == "id")
         displayInfo();
     else if (playerInput == "info" || playerInput == "lv" || playerInput == "level")
-        gameData.level.info();
+        gameData->level.info();
     else if (playerInput == "deploy" || playerInput == "de")
         deployUnit();
     else if (playerInput == "select" || playerInput == "sel")
@@ -70,49 +77,55 @@ void Game::handleInput()
 
 void Game::raid()
 {
-    if (unitIdx < 0 || unitIdx >= gameData.units.size())
+    if (unitIdx < 0 || unitIdx >= gameData->units.size())
     {
         cout << " > Deploy unit first" << endl;
         return;
     }
-    Unit u = gameData.units[unitIdx];
-    Unit e = gameData.spawnEnemy();
-    Guardian g = (gIdx >= 0 && gIdx < gameData.guardians.size()) ? gameData.guardians[gIdx] : Guardian();
+    Unit u(gameData->units[unitIdx]);
+    Unit e(gameData->spawnEnemy());
+    Guardian g;
+    if (gIdx >= 0 && gIdx < gameData->guardians.size())
+        g = gameData->guardians[gIdx];
     Raid r(u, e, g, raidSpeed);
     if (r.normal())
     {
         cout << " > You won !" << endl;
         int expReward = rng(1, 3), goldReward = rng(10, 20), rubyReward = 1;
-        gameData.level.setCurrentExp(gameData.level.getCurrentExp() + expReward);
-        gameData.gold += goldReward, gameData.ruby += rubyReward;
+        gameData->level.setCurrentExp(gameData->level.getCurrentExp() + expReward);
+        gameData->gold += goldReward, gameData->ruby += rubyReward;
         cout << " >> You gain " << expReward << "_exp | " << goldReward << "_gold | " << rubyReward << "_ruby" << endl;
     }
 }
 
 void Game::boss()
 {
-    if (unitIdx < 0 || unitIdx >= gameData.units.size())
+    if (unitIdx < 0 || unitIdx >= gameData->units.size())
     {
         cout << " > Deploy unit first" << endl;
         return;
     }
-    Unit u = gameData.units[unitIdx];
-    Unit e = gameData.spawnEnemy(true);
-    Guardian g = (gIdx >= 0 && gIdx < gameData.guardians.size()) ? gameData.guardians[gIdx] : Guardian();
+    Unit u = gameData->units[unitIdx];
+    Unit e = gameData->spawnEnemy(true);
+    Guardian g;
+    if (gIdx >= 0 && gIdx < gameData->guardians.size())
+        g = gameData->guardians[gIdx];
     Raid r(u, e, g, raidSpeed);
     double totalDmg = r.boss();
     int rubyReward = totalDmg / 5000;
-    rubyReward = rubyReward <= 0 ? 1 : rubyReward > 10 ? 10 : rubyReward;
+    rubyReward = rubyReward <= 0 ? 1 : rubyReward > 10 ? 10
+                                                       : rubyReward;
     int goldReward = totalDmg / 1000;
-    goldReward = goldReward <= 0 ? 1 : goldReward > 50 ? 50 : goldReward;
-    gameData.ruby += rubyReward, gameData.gold += goldReward;
+    goldReward = goldReward <= 0 ? 1 : goldReward > 50 ? 50
+                                                       : goldReward;
+    gameData->ruby += rubyReward, gameData->gold += goldReward;
     cout << " >> You gain " << goldReward << "_gold | " << rubyReward << "_ruby" << endl;
 }
 
 // Game Features
 void Game::deployUnit()
 {
-    string name = (unitIdx >= 0 && unitIdx < gameData.units.size()) ? gameData.units[unitIdx].getName() : "";
+    string name = (unitIdx >= 0 && unitIdx < gameData->units.size()) ? gameData->units[unitIdx].getName() : "";
     cout << "  == UNIT DEPLOYMENT ==   " << endl;
     cout << "Current unit deployment: " << name << endl;
     string input;
@@ -129,24 +142,24 @@ void Game::deployUnit()
         }
     }
     int id = stoi(input);
-    if ((id) < 0 || (id) >= gameData.units.size())
+    if ((id) < 0 || (id) >= gameData->units.size())
     {
         cout << "Unit selected is out of range" << endl;
         return;
     }
-    else if (!gameData.units[id].getOwned())
+    else if (!gameData->units[id].getOwned())
     {
         cout << "You don't own this Unit";
         return;
     }
     unitIdx = id;
-    cout << "Deploy " << gameData.units[unitIdx].getName() << " successfully" << endl;
+    cout << "Deploy " << gameData->units[unitIdx].getName() << " successfully" << endl;
     cout << endl;
 }
 
 void Game::selectGuardian()
 {
-    string name = (gIdx >= 0 && gIdx < gameData.guardians.size()) ? gameData.guardians[gIdx].getName() : "";
+    string name = (gIdx >= 0 && gIdx < gameData->guardians.size()) ? gameData->guardians[gIdx].getName() : "";
     cout << "  == GUARDIAN DEPLOYMENT ==  " << endl;
     cout << "Current guardian deployment: " << name << endl;
     string input;
@@ -163,18 +176,18 @@ void Game::selectGuardian()
         }
     }
     int id = stoi(input);
-    if ((id) < 0 || (id) >= gameData.guardians.size())
+    if ((id) < 0 || (id) >= gameData->guardians.size())
     {
         cout << "Guardian selected is out of range" << endl;
         return;
     }
-    else if (!gameData.guardians[id].getOwned())
+    else if (!gameData->guardians[id].getOwned())
     {
         cout << "You don't own this Guardian";
         return;
     }
     gIdx = id;
-    cout << "Deploy " << gameData.guardians[gIdx].getName() << " successfully" << endl;
+    cout << "Deploy " << gameData->guardians[gIdx].getName() << " successfully" << endl;
     cout << endl;
 }
 
@@ -190,13 +203,13 @@ void Game::equipOrb()
     if (u == "auto" || o == "auto")
     {
         cout << "Successfully equip best for all units" << endl;
-        for (int i = 0; i < gameData.units.size() && i < gameData.orbs.size(); i++)
+        for (int i = 0; i < gameData->units.size() && i < gameData->orbs.size(); i++)
         {
-            if (!gameData.units[i].getOwned() || !gameData.orbs[i].owned)
+            if (!gameData->units[i].getOwned() || !gameData->orbs[i].owned)
                 continue;
-            gameData.units[i].orb = gameData.orbs[i];
-            gameData.units[i].update();
-            cout << " > Successfully equip [" << gameData.units[i].getName() << "] with [" << gameData.orbs[i].name << " Orb]" << endl;
+            gameData->units[i].orb = gameData->orbs[i];
+            gameData->units[i].update();
+            cout << " > Successfully equip [" << gameData->units[i].getName() << "] with [" << gameData->orbs[i].name << " Orb]" << endl;
         }
         return;
     }
@@ -206,15 +219,15 @@ void Game::equipOrb()
         return;
     }
     int uIdx = stoi(u), oIdx = stoi(o);
-    if (uIdx < 0 || uIdx >= gameData.units.size() || oIdx < 0 || oIdx >= gameData.orbs.size())
+    if (uIdx < 0 || uIdx >= gameData->units.size() || oIdx < 0 || oIdx >= gameData->orbs.size())
     {
         cout << "Unit/Orb selected is out of range" << endl;
         return;
     }
 
-    gameData.units[uIdx].orb = gameData.orbs[oIdx];
-    gameData.units[uIdx].update();
-    cout << "Successfully equip [" << gameData.units[uIdx].getName() << "] with [" << gameData.orbs[oIdx].name << " Orb]" << endl;
+    gameData->units[uIdx].orb = gameData->orbs[oIdx];
+    gameData->units[uIdx].update();
+    cout << "Successfully equip [" << gameData->units[uIdx].getName() << "] with [" << gameData->orbs[oIdx].name << " Orb]" << endl;
 }
 
 void Game::inventory()
@@ -222,7 +235,7 @@ void Game::inventory()
     string in;
     cout << " Select inventory (unit/orb/guardian): " << endl;
     cin >> in;
-    gameData.inventory(in);
+    gameData->inventory(in);
 }
 
 void Game::displayInfo()
@@ -237,22 +250,22 @@ void Game::displayInfo()
         return;
     }
     int idx = stoi(i);
-    if (idx < 0 || idx >= gameData.units.size())
+    if (idx < 0 || idx >= gameData->units.size())
     {
         cout << " > ID selected is out of range" << endl;
         return;
     }
     cout << endl
          << " == UNIT INFO == " << endl;
-    gameData.units[idx].info();
+    gameData->units[idx].info();
     cout << endl
          << " == ORB INFO == " << endl;
-    gameData.orbs[idx].info();
-    if (!gameData.guardians.empty() && idx >= 0 && idx < gameData.guardians.size())
+    gameData->orbs[idx].info();
+    if (!gameData->guardians.empty() && idx >= 0 && idx < gameData->guardians.size())
     {
         cout << endl
              << " == GUARDIAN INFO == " << endl;
-        gameData.guardians[idx].info();
+        gameData->guardians[idx].info();
     }
 }
 
@@ -267,7 +280,7 @@ void Game::gacha()
         Gacha<Unit> g;
         cout << " == Unit Banner == " << endl;
         cout << "Price: " << g.getPrice() << " ruby | " << " Rate: " << g.getRate() << endl;
-        g.start(gameData.gold, gameData.ruby, gameData.units);
+        g.start(gameData->gold, gameData->ruby, gameData->units);
     }
 
     else if (input == "o" || input == "orb")
@@ -275,32 +288,32 @@ void Game::gacha()
         Gacha<Orb> g;
         cout << " == Orb Banner == " << endl;
         cout << "Price: " << g.getPrice() << "_ruby | " << " Rate: " << g.getRate() << endl;
-        g.start(gameData.gold, gameData.ruby, gameData.orbs);
+        g.start(gameData->gold, gameData->ruby, gameData->orbs);
     }
 }
 
 void Game::levelUp()
 {
     bool loopCond = true;
-    int totalSpent = 0, prevLv = gameData.level.get();
+    int totalSpent = 0, prevLv = gameData->level.get();
     while (loopCond)
     {
-        int goldCost = 10 * gameData.level.get();
-        if (gameData.gold >= goldCost)
+        int goldCost = 10 * gameData->level.get();
+        if (gameData->gold >= goldCost)
         {
-            loopCond = gameData.level.up();
-            gameData.gold -= loopCond ? goldCost : 0;
+            loopCond = gameData->level.up();
+            gameData->gold -= loopCond ? goldCost : 0;
             totalSpent += loopCond ? goldCost : 0;
         }
         else
         {
-            cout << " > Insufficient gold. You need " << goldCost - gameData.gold << " more" << endl;
+            cout << " > Insufficient gold. You need " << goldCost - gameData->gold << " more" << endl;
             loopCond = false;
         }
     }
     cout << endl
-         << " >> Finish leveling up. Total gold spent: " << totalSpent << " | Level increases from " << prevLv << " to " << gameData.level.get() << endl;
-    gameData.setUnitLevel();
+         << " >> Finish leveling up. Total gold spent: " << totalSpent << " | Level increases from " << prevLv << " to " << gameData->level.get() << endl;
+    gameData->setUnitLevel();
 }
 
 void Game::adminMode()
@@ -309,14 +322,14 @@ void Game::adminMode()
     cin >> pass;
     if (pass != "126")
         return;
-    gameData.gold = 99999999;
-    gameData.ruby = 99999999;
-    gameData.level.setCurrentExp(99999999);
-    for (Unit &u : gameData.units)
+    gameData->gold = 99999999;
+    gameData->ruby = 99999999;
+    gameData->level.setCurrentExp(99999999);
+    for (Unit &u : gameData->units)
         u.setOwned();
-    for (Orb &o : gameData.orbs)
+    for (Orb &o : gameData->orbs)
         o.setOwned();
-    for (Guardian &g : gameData.guardians)
+    for (Guardian &g : gameData->guardians)
         g.setOwned();
     raidSpeed = 1000;
     cout << " >>> You've just accessed to Admin Mode. Get all items " << endl;
@@ -324,8 +337,9 @@ void Game::adminMode()
 
 void Game::reloadData()
 {
-    const string path = gameData.config.getDataPath();
-    gameData = GameData(path);
+    const string path = gameData->config.getDataPath();
+    delete gameData;
+    gameData = new GameData(path);
 }
 
 void Game::setRaidSpeed()
