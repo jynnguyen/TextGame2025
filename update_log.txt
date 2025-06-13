@@ -1,0 +1,8 @@
+June-13th-2025
++ Adding Unit's Description
++ Reworking method of calculating Damage output
++ Balancing some units after reworking damage calculation
++ Adding Unit's and Orb's Modifiers (Ultmate Dmg Bonus,...); Agility(Evade chance,...); Effect(Resistance, Hit Rate,...);...
++ Dot is now applied to enemy based on the Dot Dealer's Hit Rate of DOT (meaning that not all the units can use Dot effectively)
++ Unit's, Orb's, Guardian's info is now more detailed than ever !
++ ...
