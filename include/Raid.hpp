@@ -17,4 +17,7 @@ private:
     Unit enemy;
     Guardian guardian;
     double speed = 1;
+
+    void displayDetail();
+    void display();
 };

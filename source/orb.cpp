@@ -1,7 +1,6 @@
 #include "Orb.hpp"
 
-Orb::Orb(string n , BaseStats b, CritStats cr, Modifiers m, Effect res, Effect hr, Agility agi) :
-name(n),base(b),crit(cr),mod(m),resistance(res),hitRate(hr),agility(agi)
+Orb::Orb(string n, BaseStats b, CritStats cr, Modifiers m, Effect res, Effect hr, Agility agi) : name(n), base(b), crit(cr), mod(m), resistance(res), hitRate(hr), agility(agi)
 {
 }
 
@@ -10,13 +9,21 @@ void Orb::setOwned()
     owned = true;
 }
 
-void Orb::info()
+string Orb::info()
 {
-    cout << string(2, '-') << name << " (Rarity: " << rarity << " - Owned: " << (owned ? "Yes" : "No");
-    cout << ")" << string(2, '-') << endl;
-    base.info();
-    crit.info();
-    mod.info();
+    stringstream ss;
+    ss << string(2, '*') << name << " (Rarity: " << rarity << " - Owned: " << (owned ? "Yes" : "No");
+    ss << ")" << string(2, '*') << endl;
+    ss << base.info();
+    ss << crit.info();
+    ss << mod.info();
+    ss << resistance.info();
+    if (!resistance.info().empty())
+        ss << " - Resistance: " << hitRate.info();
+    if (!hitRate.info().empty())
+        ss << " - Hit Rate: " << resistance.info();
+    ss << agility.info();
+    return ss.str();
 }
 
 bool Orb::getOwned() const

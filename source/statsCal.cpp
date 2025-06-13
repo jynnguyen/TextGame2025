@@ -66,7 +66,7 @@ double StatsCal::getFinalDef(const StatsCal &other, double K) const
     double pen = max(0.0, 1.0 - other.mod.penetration);
     double def = base.def * pen;
     double denominator = def + K * coeff;
-    double dmgReduction = (1.0 - resistance.dmg + hitRate.dmg);
+    double dmgReduction = (1.0 - resistance.dmg + other.hitRate.dmg);
     limit(dmgReduction, 0, 1);
 
     if (denominator <= 0.0)

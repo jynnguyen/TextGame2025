@@ -167,18 +167,21 @@ void Game::selectGuardian()
     cin >> input;
     cout << endl
          << " > ";
-    for (int i = 0; i < input.length(); i++)
+    if (!isNumber(input))
     {
-        if (!isdigit(input[i]))
-        {
-            cout << "Invalid input" << endl;
-            return;
-        }
+        cout << "Invalid input" << endl;
+        return;
     }
     int id = stoi(input);
     if ((id) < 0 || (id) >= gameData->guardians.size())
     {
         cout << "Guardian selected is out of range" << endl;
+        return;
+    }
+    else if (id == -1)
+    {
+        cout << "Deselect Guardian" << endl;
+        gIdx = -1;
         return;
     }
     else if (!gameData->guardians[id].getOwned())
@@ -224,6 +227,16 @@ void Game::equipOrb()
         cout << "Unit/Orb selected is out of range" << endl;
         return;
     }
+    else if (uIdx == -1 || oIdx == -1)
+    {
+        cout << "Unequip orbs for all Units" << endl;
+        for (Unit &u : gameData->units)
+        {
+            u.orb = Orb();
+            u.update();
+        }
+        return;
+    }
 
     gameData->units[uIdx].orb = gameData->orbs[oIdx];
     gameData->units[uIdx].update();
@@ -257,15 +270,15 @@ void Game::displayInfo()
     }
     cout << endl
          << " == UNIT INFO == " << endl;
-    gameData->units[idx].info();
+    cout << gameData->units[idx].info();
     cout << endl
          << " == ORB INFO == " << endl;
-    gameData->orbs[idx].info();
+    cout << gameData->orbs[idx].info();
     if (!gameData->guardians.empty() && idx >= 0 && idx < gameData->guardians.size())
     {
         cout << endl
              << " == GUARDIAN INFO == " << endl;
-        gameData->guardians[idx].info();
+        cout << gameData->guardians[idx].info();
     }
 }
 

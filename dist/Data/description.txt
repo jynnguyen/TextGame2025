@@ -1,0 +1,13 @@
+Unit={Ultimate 'Atomic' : Ignoring enemy's defense by 40% with this attack (200%_ATK)}
+Unit={Ultimate 'Kamehameha' : This attack is guarantee with 100% Crit Rate (260%_ATK)}
+Unit={Ultimate 'Galting Gun' : Dealing continuously 4 hits to enemy (80%_ATK x 4)}
+Unit={Ultimate 'Domain Expansion' : +100% ATK and 30% Damage Bonus for 2 turns}
+Unit={Ultimate 'Let's gambling' : +50% Crit Rate .Rolling 3 dices then SUM = total dices' scores. If 2/3 dices have the same point SUM is multiply by 1.2/1.5. Buff +(SUM/9) Crit Damage and +(SUM/50) Penetration}
+Unit={Ultimate 'Dragon Transforming' : +40% Crowd Control Resistance for 2 turns. Increasing self ATK based on 500% DEF for 1 turn.}
+Unit={Ultimate 'Blood Lust' : Immidiately self healing to 100%. Increasing self ATK based on 10% HP lost + 10% max HP. Energy Cap after using ultimate set to 99999}
+Unit={Ultimate 'Explosive Arrow' : +11 Energy Regen. Shooting an arrow to enemy ((Current Energy x 5%)_ATK)}
+Unit={Ultimate 'Speed of Light' : +5% Damage Bonus (stackable). Self increasing evade chance by 35% for 2 turns}
+Unit={Ultimate 'Soul Taken' : Dealing damage to enemy (50%_HP) and self healing based on 20% damage dealt}
+Unit={Ultimate 'BOOM !' : +100% hit rate of DOT. Applying shock to enemy for 10 turns (30%_ATK), then immidiately activates all DOTs enemy having with 50% Damage Bonus}
+Unit={Ultimate 'Dragon Flame' : +100% hit rate of DOT. Dealing damage to enemy (120%_ATK), and burning it for 3 turns (80%_ATK)}
+Unit={Ultimate 'Excalibur' : Using her holy sword dealing extremely high damage to enemy (800%_ATK)}

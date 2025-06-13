@@ -21,7 +21,7 @@ bool isNumber(const string &number)
 {
     for (int i = 0; i < number.length(); i++)
     {
-        if (!isdigit(number[i]))
+        if (!(isdigit(number[i]) || number[i] == '-'))
             return false;
     }
     return true;
@@ -33,4 +33,11 @@ void limit(double &value, double min, double max)
         value = max;
     else if (value < min)
         value = min;
+}
+
+string formatDouble(const double& value, int precision)
+{
+    std::ostringstream oss;
+    oss << std::fixed << std::setprecision(precision) << value;
+    return oss.str();
 }

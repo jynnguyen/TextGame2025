@@ -6,7 +6,7 @@ class Guardian
 {
 public:
     Guardian(string n = "", int i = -1, int rPA = 0):name(n),id(i),roundPerAction(rPA){}
-    void info();
+    string info();
     void skill(const int& currentRound,Unit& ally, Unit& enemy);
     bool getOwned() const;
     void setOwned();

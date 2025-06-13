@@ -14,6 +14,7 @@ public:
     void loadOrb(const string &str);
     void loadGuardian(const string &str);
     void loadSave(const string &str);
+    void loadDes();
     void setUnitLevel();
     void clearAll();
     void saveAll();

@@ -1,10 +1,12 @@
 #include "Guardian.hpp"
 
-void Guardian::info()
+string Guardian::info()
 {
-    cout << string(2, '-') << name << " (Owned: " << (owned ? "Yes" : "No");
-    cout << ")" << string(2, '-') << endl;
-    cout << "Rounds Per Action: "<<roundPerAction<<endl;
+    stringstream ss;
+    ss << string(2, '-') << name << " (Owned: " << (owned ? "Yes" : "No");
+    ss << ")" << string(2, '-') << endl;
+    ss << "Rounds Per Action: "<<roundPerAction<<endl;
+    return ss.str();
 }
 bool Guardian::getOwned() const
 {

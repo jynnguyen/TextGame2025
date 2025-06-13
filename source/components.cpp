@@ -1,5 +1,12 @@
 #include "Components.hpp"
 
+string Components::formatDouble(const double &value, int precision)
+{
+    ostringstream oss;
+    oss << fixed << setprecision(precision) << value;
+    return oss.str();
+}
+
 void BaseStats::reset()
 {
     hp = maxHp;
@@ -7,12 +14,14 @@ void BaseStats::reset()
     def = maxDef;
 }
 
-void BaseStats::info()
+string BaseStats::info()
 {
-    cout << "HP: " << hp << " | ATK: " << atk << " | DEF: " << def << endl;
+    stringstream ss;
+    ss << " - HP: " << formatDouble(hp) << " | ATK: " << formatDouble(atk) << " | DEF: " << formatDouble(def) << endl;
+    return ss.str();
 }
 
-BaseStats& BaseStats::operator*=(double num)
+BaseStats &BaseStats::operator*=(double num)
 {
     maxAtk *= num;
     maxHp *= num;
@@ -36,9 +45,11 @@ void Energy::reset()
     regen = base_regen;
 }
 
-void Energy::info()
+string Energy::info()
 {
-    cout << "Energy: " << current << "/" << max << endl;
+    stringstream ss;
+    ss << " - Energy: " << formatDouble(current) << "/" << formatDouble(max) << endl;
+    return ss.str();
 }
 
 void CritStats::reset()
@@ -47,9 +58,11 @@ void CritStats::reset()
     dmg = base_dmg;
 }
 
-void CritStats::info()
+string CritStats::info()
 {
-    cout << "Crit Rate: " << rate * 100 << "% | Crit Dmg: " << dmg * 100 << "%" << endl;
+    stringstream ss;
+    ss << " - Crit Rate: " << formatDouble(rate * 100) << "% | Crit Dmg: " << formatDouble(dmg * 100) << "%" << endl;
+    return ss.str();
 }
 
 void Status::reset()
@@ -64,27 +77,30 @@ void Modifiers::reset()
     dmgBonus = 0;
 }
 
-void Modifiers::info()
+string Modifiers::info()
 {
-    if (dmgBonus > 0)
-        cout << "Dmg Bonus: " << dmgBonus * 100 << "% | ";
-    if (penetration > 0)
-        cout << "Penetration: " << penetration * 100 << "% | ";
-    if (ultDmgBonus > 0)
-        cout << "Ult Dmg Bonus: " << ultDmgBonus * 100 << "% | ";
-    if (dotDmgBonus > 0)
-        cout << "Dot Dmg Bonus: " << dotDmgBonus * 100 << "% | ";
-    if (penetration > 0 || ultDmgBonus > 0 || dmgBonus > 0 || dotDmgBonus > 0)
-        cout << endl;
-    cout << endl;
+    stringstream ss;
+    if (penetration > 1e-10 || ultDmgBonus > 1e-10 || dmgBonus > 1e-10 || dotDmgBonus > 1e-10)
+        ss << " - ";
+    if (dmgBonus > 1e-10)
+        ss << "Dmg Bonus: " << formatDouble(dmgBonus * 100) << "% | ";
+    if (penetration > 1e-10)
+        ss << "Penetration: " << formatDouble(penetration * 100) << "% | ";
+    if (ultDmgBonus > 1e-10)
+        ss << "Ult Dmg Bonus: " << formatDouble(ultDmgBonus * 100) << "% | ";
+    if (dotDmgBonus > 1e-10)
+        ss << "Dot Dmg Bonus: " << formatDouble(dotDmgBonus * 100) << "% | ";
+    if (penetration > 1e-10 || ultDmgBonus > 1e-10 || dmgBonus > 1e-10 || dotDmgBonus > 1e-10)
+        ss << endl;
+    return ss.str();
 }
 
-BaseStats BaseStats::operator+(const BaseStats& other) const
+BaseStats BaseStats::operator+(const BaseStats &other) const
 {
     return BaseStats(hp + other.hp, atk + other.atk, def + other.def);
 }
 
-BaseStats& BaseStats::operator+=(const BaseStats& other)
+BaseStats &BaseStats::operator+=(const BaseStats &other)
 {
     maxHp += other.maxHp;
     maxAtk += other.maxAtk;
@@ -92,12 +108,12 @@ BaseStats& BaseStats::operator+=(const BaseStats& other)
     return *this;
 }
 
-BaseStats BaseStats::operator-(const BaseStats& other) const
+BaseStats BaseStats::operator-(const BaseStats &other) const
 {
     return BaseStats(hp - other.hp, atk - other.atk, def - other.def);
 }
 
-BaseStats& BaseStats::operator=(const BaseStats& other)
+BaseStats &BaseStats::operator=(const BaseStats &other)
 {
     if (this != &other)
     {
@@ -114,21 +130,21 @@ BaseStats& BaseStats::operator=(const BaseStats& other)
     return *this;
 }
 
-CritStats& CritStats::operator+=(const CritStats& other)
+CritStats &CritStats::operator+=(const CritStats &other)
 {
     rate += other.rate;
     dmg += other.dmg;
     return *this;
 }
 
-CritStats& CritStats::operator-=(const CritStats& other)
+CritStats &CritStats::operator-=(const CritStats &other)
 {
     rate -= other.rate;
     dmg -= other.dmg;
     return *this;
 }
 
-CritStats& CritStats::operator=(const CritStats& other)
+CritStats &CritStats::operator=(const CritStats &other)
 {
     if (this != &other)
     {
@@ -138,7 +154,7 @@ CritStats& CritStats::operator=(const CritStats& other)
     return *this;
 }
 
-Modifiers& Modifiers::operator+=(const Modifiers& other)
+Modifiers &Modifiers::operator+=(const Modifiers &other)
 {
     penetration += other.penetration;
     ultDmgBonus += other.ultDmgBonus;
@@ -147,7 +163,7 @@ Modifiers& Modifiers::operator+=(const Modifiers& other)
     return *this;
 }
 
-Modifiers& Modifiers::operator-=(const Modifiers& other)
+Modifiers &Modifiers::operator-=(const Modifiers &other)
 {
     penetration -= other.penetration;
     ultDmgBonus -= other.ultDmgBonus;
@@ -156,7 +172,7 @@ Modifiers& Modifiers::operator-=(const Modifiers& other)
     return *this;
 }
 
-Modifiers& Modifiers::operator=(const Modifiers& other)
+Modifiers &Modifiers::operator=(const Modifiers &other)
 {
     if (this != &other)
     {
@@ -168,7 +184,7 @@ Modifiers& Modifiers::operator=(const Modifiers& other)
     return *this;
 }
 
-Effect& Effect::operator+=(const Effect& other)
+Effect &Effect::operator+=(const Effect &other)
 {
     dot += other.dot;
     cc += other.cc;
@@ -176,8 +192,37 @@ Effect& Effect::operator+=(const Effect& other)
     return *this;
 }
 
-Agility& Agility::operator+=(const Agility& other){
+string Effect::info()
+{
+    stringstream ss;
+    if (cc > 1e-10)
+        ss << "Crowd Control: " << formatDouble(cc * 100) << "%" << " | ";
+    if (dot > 1e-10)
+        ss << "DOT: " << formatDouble(dot * 100) << "%" << " | ";
+    if (dmg > 1e-10)
+        ss << "Dmg: " << formatDouble(dmg * 100) << "%";
+    if (cc > 1e-10 || dot > 1e-10 || dmg > 1e-10)
+        ss << endl;
+    return ss.str();
+}
+
+Agility &Agility::operator+=(const Agility &other)
+{
     evade += other.evade;
     accuracy += other.accuracy;
     return *this;
+}
+
+string Agility::info()
+{
+    stringstream ss;
+    if (evade > 1e-10 || accuracy > 1e-10)
+        ss << " - ";
+    if (evade > 1e-10)
+        ss << "Evade: " << formatDouble(evade * 100) << "%" << " | ";
+    if (accuracy > 1e-10)
+        ss << "Accuracy: " << formatDouble(accuracy * 100) << "%" << " | ";
+    if (evade > 1e-10 || accuracy > 1e-10)
+        ss << endl;
+    return ss.str();
 }

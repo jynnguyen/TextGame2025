@@ -4,11 +4,10 @@ Raid::Raid(Unit deploy, Unit e, Guardian g, double s) : onDeploy(deploy), enemy(
 {
 }
 
-
 bool Raid::normal()
 {
     cout << " == NORMAL RAID == " << endl;
-    enemy.info();
+    cout << enemy.info();
     string input;
     cout << endl
          << " Select floor: ";
@@ -29,11 +28,7 @@ bool Raid::normal()
         guardian.skill(round, onDeploy, enemy);
         takeAction(onDeploy, enemy);
         takeAction(enemy, onDeploy);
-        cout << string(30, '-') << endl;
-        onDeploy.displayStats();
-        enemy.displayStats();
-        this_thread::sleep_for(chrono::milliseconds(int(2000 / speed)));
-        cout << string(30, '-') << endl;
+        display();
         round++;
     } while (onDeploy.isAlive() && enemy.isAlive() && round < 25);
     cout << " Total dmg dealt (based on Enemy's max and current HP): " << enemy.stats.getHpLost() << endl;
@@ -43,7 +38,7 @@ bool Raid::normal()
 double Raid::boss()
 {
     cout << " == BOSS RAID == " << endl;
-    enemy.info();
+    cout << enemy.info();
     int round = 0;
     do
     {
@@ -53,11 +48,7 @@ double Raid::boss()
         guardian.skill(round, onDeploy, enemy);
         takeAction(onDeploy, enemy);
         takeAction(enemy, onDeploy);
-        cout << string(30, '-') << endl;
-        onDeploy.displayStats();
-        enemy.displayStats();
-        this_thread::sleep_for(chrono::milliseconds(int(2000 / speed)));
-        cout << string(30, '-') << endl;
+        display();
         round++;
     } while (onDeploy.isAlive() && enemy.isAlive() && round < 25);
     cout << " Total dmg dealt (based on Enemy's max and current HP): " << enemy.stats.getHpLost() << endl;
@@ -76,4 +67,22 @@ void Raid::takeAction(Unit &attacker, Unit &target)
     else
         attacker.attack(target);
     this_thread::sleep_for(chrono::milliseconds(int(1500 / speed)));
+}
+
+void Raid::displayDetail()
+{
+    cout << string(30, '-') << endl;
+    cout << onDeploy.info();
+    cout << enemy.info();
+    this_thread::sleep_for(chrono::milliseconds(int(2000 / speed)));
+    cout << string(30, '-') << endl;
+}
+void Raid::display()
+{
+    cout << string(50, '-') << endl;
+    onDeploy.displayStats();
+    cout << string(10, '-') << endl;
+    enemy.displayStats();
+    this_thread::sleep_for(chrono::milliseconds(int(2000 / speed)));
+    cout << string(50, '-') << endl;
 }

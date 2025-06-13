@@ -5,26 +5,26 @@ Configuration::Configuration(const string &fileName)
     dataFile = fileName;
     ifstream asset(fileName);
     ifstream save(saveFile);
-    if (asset.is_open())
+    if (!asset.is_open())
     {
-        string line;
-        while (getline(asset, line))
-        {
-            removeSpace(line);
-            if (line.find("//") == 0)
-            {
-                cout << " - Loading " << line.substr(line.find("//") + 2, line.find("=") - line.find("//") - 2) << "..." << endl;
-                continue;
-            }
-            loadAsset(line);
-        }
-    }
-    else
-    {
-        cout << "Assets can't be found";
+        cout << "data.txt not found";
         return;
     }
-    if (save.is_open())
+    string line;
+    while (getline(asset, line))
+    {
+        removeSpace(line);
+        if (line.find("//") == 0)
+        {
+            cout << " - Loading " << line.substr(line.find("//") + 2, line.find("=") - line.find("//") - 2) << "..." << endl;
+            continue;
+        }
+        loadAsset(line);
+    }
+
+    if (!save.is_open())
+        cout << "save.txt not found";
+    else
     {
         string line;
         while (getline(save, line))
@@ -33,10 +33,7 @@ Configuration::Configuration(const string &fileName)
             loadSave(line);
         }
     }
-    else
-    {
-        cout << "Saves can't be found";
-    }
+    loadDes();
     setUnitLevel();
 }
 
@@ -112,6 +109,29 @@ void Configuration::loadGuardian(const string &str)
     int rPA, id = guardians.size();
     sscanf(str.c_str(), "Guardian=%49[^,],%d", &name, &rPA);
     guardians.emplace_back(Guardian(name, id, rPA));
+}
+
+void Configuration::loadDes()
+{
+    const string path = "Data/description.txt";
+    ifstream file(path);
+    if (!file.is_open())
+    {
+        cout << "description.txt not found" << endl;
+        return;
+    }
+    for (int i = 0; i < units.size(); i++)
+    {
+        string line;
+        if (!getline(file, line))
+            return;
+        if (line.find("Unit=") == 0)
+        {
+            char des[500];
+            sscanf(line.c_str(), "Unit={%499[^}]", &des);
+            units[i].setDescription(des);
+        }
+    }
 }
 
 void Configuration::loadSave(const string &str)

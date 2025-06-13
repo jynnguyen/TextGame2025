@@ -12,7 +12,7 @@ public:
     string getName() const;
     int getId() const;
     void setID(int i);
-    void info();
+    string info();
     void setRarity(string r);
     string getRarity() const;
 

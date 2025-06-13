@@ -5,7 +5,6 @@ using namespace std;
 
 int rng(int from, int to);
 int rngRate(double zero, double one, double two = 0, double three = 0);
-
 bool isNumber(const string &number);
 
 template <typename T>

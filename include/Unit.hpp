@@ -19,24 +19,25 @@ public:
 
     Unit(int t, string n = "", BaseStats b = {1, 1, 1}, Energy e = 1000);
 
-    void applyDot(Unit& target, int duration, double scale = 0);
-    void applyCC(Unit& target, int duration);
-    bool isDotted(Unit& target);
+    void applyDot(Unit &target, int duration, double scale = 0);
+    void applyCC(Unit &target, int duration);
+    bool isDotted(Unit &target);
     bool isCced();
-    bool updateBadStatus(Unit& dotDmgDealer);
+    bool updateBadStatus(Unit &dotDmgDealer);
 
-    double attack(Unit& target, double scale = 1, double energyRegen = 1, StatsCal::BaseType scaleOn = StatsCal::BaseType::ATK);
-    void ultimate(Unit& target);
-    double dotAttack(Unit& dotDmgDealer, const Status &dot);
-    double trueAttack(Unit& target, double dmg);
+    double attack(Unit &target, double scale = 1, bool isUltimate = false, StatsCal::BaseType scaleOn = StatsCal::BaseType::ATK);
+    void ultimate(Unit &target);
+    double dotAttack(Unit &dotDmgDealer, const Status &dot);
+    double trueAttack(Unit &target, double dmg);
 
-    void info();
+    string info();
     void displayStats();
     bool isAlive();
     bool isEnoughEnergy();
     void applyOrb();
     void setID(int i);
     void setType(int t);
+    void setDescription(string des);
     string getName() const;
     int getLevel() const;
     void setLevel(int lv);
@@ -44,7 +45,7 @@ public:
     int getType() const;
     bool getOwned() const;
     void setOwned();
-    bool isEvaded(Unit& other);
+    bool isEvaded(Unit &other);
 
     void heal(double amount);
     void setRarity(string r);
@@ -55,9 +56,10 @@ public:
 private:
     string rarity = "SR";
     string name = "No";
+    string description = "No information";
     bool owned = false;
     int level = 0;
     int id = -1, type = -1;
 
-    double dmgCal(const Unit& target, double scale = 1, StatsCal::BaseType scaleOn = StatsCal::BaseType::ATK);
+    double dmgCal(const Unit &target, double scale = 1, StatsCal::BaseType scaleOn = StatsCal::BaseType::ATK);
 };
