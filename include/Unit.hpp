@@ -28,7 +28,7 @@ public:
     double attack(Unit &target, double scale = 1, bool isUltimate = false, StatsCal::BaseType scaleOn = StatsCal::BaseType::ATK);
     void ultimate(Unit &target);
     double dotAttack(Unit &dotDmgDealer, const Status &dot);
-    double trueAttack(Unit &target, double dmg);
+    double trueAttack(Unit &target, double scale = 1, StatsCal::BaseType scaleOn = StatsCal::BaseType::ATK);
 
     string info();
     void displayStats();

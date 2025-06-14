@@ -1,8 +1,21 @@
+---------------
 June-13th-2025
-+ Adding Unit's Description
-+ Reworking method of calculating Damage output
-+ Balancing some units after reworking damage calculation
-+ Adding Unit's and Orb's Modifiers (Ultmate Dmg Bonus,...); Agility(Evade chance,...); Effect(Resistance, Hit Rate,...);...
-+ Dot is now applied to enemy based on the Dot Dealer's Hit Rate of DOT (meaning that not all the units can use Dot effectively)
-+ Unit's, Orb's, Guardian's info is now more detailed than ever !
-+ ...
++ Added Unit Descriptions
+Each unit now comes with its own unique description for better clarity and character depth.
++ Reworked Damage Calculation Method
+The core damage formula has been redesigned to improve balance and allow for more nuanced mechanics.
++ Unit Balance Adjustments
+Several units have been rebalanced to align with the new damage calculation system.
++ Introduced Modifiers for Units and Orbs
+Modifiers such as Ultimate Damage Bonus, Agility (evasion chance), and Effects (resistance, hit rate, etc.) have been added, offering more build diversity.
++ Improved DoT Mechanic
+Damage-over-Time (DoT) effects now depend on the caster's DoT Hit Rate, meaning not all units can apply DoT effectively by default.
++ Enhanced Detail in Unit, Orb, and Guardian Information
+More comprehensive stats and details are now displayed, giving players deeper insights into their team composition and strengths.
+
+---------------
+June-13th-2025
++ Adding 2 new Units, 2 new Orbs and 1 new Enemy
+Units: Cipher and Regulus; Orbs: Nya and Time; Enemy: Undead.
++ New Mechanic: True Damage
+True Damage bypasses all beneficial or harmful effects, dealing direct damage to the target's HP.

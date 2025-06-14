@@ -35,49 +35,47 @@ bool StatsCal::effectHit(StatsCal &target, EffectType type)
 {
     if (type == EffectType::CC)
     {
-        double hit = 1 + hitRate.cc - target.resistance.cc;
-        limit(hit, 0, 1);
+        double hit = getLimit(1 + hitRate.cc - target.resistance.cc, 0, 1);
         return rngRate(1 - hit, hit) == 1;
     }
     else if (type == EffectType::DOT)
     {
-        double hit = hitRate.dot - resistance.dot;
-        limit(hit, 0, 1);
+        double hit = getLimit(hitRate.dot - resistance.dot, 0, 1);
         return rngRate(1 - hit, hit) == 1;
     }
     else
         return false;
 }
 
-double StatsCal::getFinalDmg(BaseType scaleOn) const
+double StatsCal::getFinalDmg(BaseType scaleOn, bool canCrit) const
 {
     double dmg = (scaleOn == BaseType::ATK) ? base.atk : (scaleOn == BaseType::HP) ? base.maxHp
                                                      : (scaleOn == BaseType::DEF)  ? base.def
                                                                                    : 0;
-    dmg = dmg * (1 + mod.dmgBonus);
-    if (isCrit())
+    double bonus = 1 + mod.dmgBonus;
+    dmg = dmg * getLimit(bonus, 1.0, bonus);
+    if (canCrit && isCrit())
         dmg *= (1 + crit.dmg);
     return dmg;
 }
 
 double StatsCal::getFinalDef(const StatsCal &other, double K) const
 {
-    double pen = max(0.0, 1.0 - other.mod.penetration);
-    double def = base.def * pen;
+    double pen = 1.0 - other.mod.penetration;
+    double def = base.def * getLimit(pen, 0.0, pen);
     double denominator = def + K * coeff;
     double dmgReduction = (1.0 - resistance.dmg + other.hitRate.dmg);
-    limit(dmgReduction, 0, 1);
 
     if (denominator <= 0.0)
         return 0.0;
 
-    double reduceDmg = (1.0 - def / denominator) * dmgReduction;
+    double reduceDmg = (1.0 - def / denominator) * getLimit(dmgReduction, 0, 1);
     return reduceDmg;
 }
 
 bool StatsCal::isCrit() const
 {
-    double critHit = (crit.rate > 1) ? 1 : crit.rate;
+    double critHit = getLimit(crit.rate,0,1);
     bool result = rngRate(1.0 - critHit, critHit) == 1;
     if (result)
         cout << " Critical Hit !" << endl;
@@ -86,8 +84,7 @@ bool StatsCal::isCrit() const
 
 bool StatsCal::isEvade(StatsCal &other)
 {
-    double evade = agility.evade - other.agility.accuracy;
-    limit(evade, 0, 1);
+    double evade = getLimit(agility.evade - other.agility.accuracy,0,1);
     return rngRate(1.0 - evade, evade) == 1;
 }
 

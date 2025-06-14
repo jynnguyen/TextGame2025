@@ -13,7 +13,6 @@ Configuration::Configuration(const string &fileName)
     string line;
     while (getline(asset, line))
     {
-        removeSpace(line);
         if (line.find("//") == 0)
         {
             cout << " - Loading " << line.substr(line.find("//") + 2, line.find("=") - line.find("//") - 2) << "..." << endl;
@@ -54,26 +53,23 @@ void Configuration::loadAsset(const string &str)
 void Configuration::loadUnit(const string &str, string type)
 {
     char name[50];
-    string toRead = type == "unit" ? "Unit=%49[^,],{%lf,%lf,%lf},%lf" : "Enemy=%49[^,],{%lf,%lf,%lf},%lf";
+    string toRead = (type == "unit" ? "Unit=%49[^,],{%lf,%lf,%lf},%lf" : "Enemy=%49[^,],{%lf,%lf,%lf},%lf");
     double hp, atk, def, energy;
     int count = sscanf(str.c_str(), toRead.c_str(), name, &hp, &atk, &def, &energy);
+    if (count != 5)
+        throw runtime_error("Failed to parse input string: " + str);
     int typeInNumber = (type == "unit") ? 0 : 1;
     Unit u(typeInNumber, name, {hp, atk, def}, energy);
     int size = (type == "unit") ? units.size() : enemies.size();
+    u.setID(size);
     if (size % 10 == 0 && size != 0)
         u.setRarity("UR");
     else if (size % 5 == 0 && size != 0)
         u.setRarity("SSR");
     if (type == "unit")
-    {
-        u.setID(size);
         units.emplace_back(u);
-    }
     else if (type == "enemy")
-    {
-        u.setID(size);
         enemies.emplace_back(u);
-    }
 }
 
 void Configuration::loadOrb(const string &str)

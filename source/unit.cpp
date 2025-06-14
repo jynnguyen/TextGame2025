@@ -16,12 +16,12 @@ string Unit::info()
     ss << stats.crit.info();
     ss << stats.mod.info();
     if (!stats.resistance.info().empty())
-        ss << " - Resistance = " << stats.resistance.info();
+        ss << " - Resistance -> " << stats.resistance.info();
     if (!stats.hitRate.info().empty())
-        ss << " - Hit Rate = " << stats.hitRate.info();
+        ss << " - Hit Rate ->" << stats.hitRate.info();
     ss << stats.agility.info();
-    if(!description.empty())
-        ss << " + " <<description << '.' <<endl;
+    if (!description.empty())
+        ss << " + " << description << '.' << endl;
     return ss.str();
 }
 
@@ -57,7 +57,8 @@ void Unit::setType(int t)
     type = t;
 }
 
-void Unit::setDescription(string des){
+void Unit::setDescription(string des)
+{
     description = des;
 }
 
@@ -132,7 +133,8 @@ double Unit::attack(Unit &target, double scale, bool isUltimate, StatsCal::BaseT
     if (target.isEvaded(*this))
         return 0;
     int energyRegen = (isUltimate) ? 0 : 1;
-    double dmg = dmgCal(target, scale, scaleOn) * (isUltimate ? (1 + stats.mod.ultDmgBonus) : 1);
+    double ultBonus = (isUltimate ? (1 + stats.mod.ultDmgBonus) : 1);
+    double dmg = dmgCal(target, scale, scaleOn) * getLimit(ultBonus,1,ultBonus);
     cout << " > " << name << " dealt " << dmg << "_dmg to " << target.name << endl;
     target.stats.base.hp -= dmg;
     energy.current += energy.regen * energyRegen;
@@ -167,17 +169,19 @@ void Unit::applyDot(Unit &target, int duration, double scale)
 
 double Unit::dotAttack(Unit &target, const Status &dot)
 {
-    double dmg = stats.getFinalDmg() * dot.scale * (1 + stats.mod.dotDmgBonus) * target.stats.getFinalDef(this->stats);
+    double dmg = stats.getFinalDmg(StatsCal::BaseType::ATK, false) * dot.scale * (1 + stats.mod.dotDmgBonus) * target.stats.getFinalDef(this->stats);
     target.stats.base.hp -= dmg;
     cout << " > " << target.name << " receives " << dmg << " DOT dmg from " << name << endl;
     return dmg;
 }
 
-double Unit::trueAttack(Unit &target, double dmg)
+double Unit::trueAttack(Unit &target, double scale, StatsCal::BaseType scaleOn)
 {
-    target.stats.base.hp -= dmg;
-    target.stats.base.hp = target.stats.base.hp < 0 ? 0 : target.stats.base.hp;
-    return dmg;
+    stats.mod.penetration += 100, stats.mod.dmgBonus -= 100, stats.mod.ultDmgBonus -= 100, stats.hitRate.dmg += 100, stats.crit.rate -= 100;
+    cout << endl << name << " deals true damage to " << target.name << endl;
+    double finalDmg = attack(target, scale, true, scaleOn);
+    stats.mod.penetration -= 100, stats.mod.dmgBonus += 100, stats.mod.ultDmgBonus += 100, stats.hitRate.dmg -= 100, stats.crit.rate += 100;
+    return finalDmg;
 }
 
 bool Unit::isCced()
@@ -251,7 +255,7 @@ void Unit::ultimate(Unit &target)
         {
             cout << "Domain Expansion ! ";
             stats.buffBase(StatsCal::BaseType::ATK, max_atk, 2, name);
-            stats.buffMod(StatsCal::ModType::DMGBONUS, 0.4 , 2, name);
+            stats.buffMod(StatsCal::ModType::DMGBONUS, 0.4, 2, name);
         }
         else if (id == 4)
         {
@@ -320,6 +324,20 @@ void Unit::ultimate(Unit &target)
             cout << "Excaliburr !";
             attack(target, 8, true);
         }
+        else if (id == 13)
+        {
+            cout << "Cat's Scratch ";
+            double enemyCurrentHp = target.stats.base.hp / target.stats.base.maxHp;
+            stats.buffMod(StatsCal::ModType::ULTDMGBONUS, enemyCurrentHp * 3, 1, name);
+            for (int i = 0; i < 5; i++)
+                totalDmg += attack(target, 0.6, true);
+        }
+        else if (id == 14)
+        {
+            cout << "Time malnipulation";
+            trueAttack(target, 3);
+            stats.buffEffect(StatsCal::EffectType::DMG, 1, 1, name, true);
+        }
 
         break;
     case 1:
@@ -354,6 +372,13 @@ void Unit::ultimate(Unit &target)
             max_hp *= 1.25, max_atk *= 1.25, max_def *= 1.25;
             stats.base.hp = max_hp, stats.base.atk = max_atk, stats.base.def = max_def;
             energy.regen = 0;
+        }
+        else if (id == 5)
+        {
+            cout << "I'm dead";
+            stats.buffBase(StatsCal::BaseType::ATK, stats.base.def, 5, name);
+            stats.buffBase(StatsCal::BaseType::DEF, -stats.base.def, 5, name);
+            stats.buffEffect(StatsCal::EffectType::DMG, 1, 1, name, true);
         }
         else if (id == 666)
         {

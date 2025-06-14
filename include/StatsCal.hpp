@@ -62,7 +62,7 @@ public:
     double getHpLost();
     bool effectHit(StatsCal& other, EffectType type);
     bool isEvade(StatsCal& other);
-    double getFinalDmg(BaseType scaleOn = BaseType::ATK) const;
+    double getFinalDmg(BaseType scaleOn = BaseType::ATK, bool canCrit = true) const;
     double getFinalDef(const StatsCal& other, double K = 50) const;
 
     double coeff, baseCoeff;

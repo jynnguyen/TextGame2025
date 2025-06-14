@@ -19,13 +19,12 @@ Unit GameData::spawnEnemy(bool isBoss)
 {
     if (!isBoss)
     {
-        int id = rng(0, enemies.size());
-        Unit e((enemies[id]));
-        return e;
+        int id = rng(0, enemies.size()-1);
+        return (enemies[id]);
     }
     else
     {
-        Unit e(1, "WORLD DEVIL", {10000000, 50, 50}, 250);
+        Unit e(1, "WORLD DEVIL", {100000000, 50, 50}, 250);
         e.setType(1), e.setID(666);
         return e;
     }

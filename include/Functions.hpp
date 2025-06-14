@@ -28,4 +28,4 @@ void printInventory(const vector<T> &items, const string &title,
     }
 }
 
-void limit(double &value, double min, double max);
+double getLimit(const double &value, double min, double max);

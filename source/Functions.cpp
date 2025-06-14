@@ -27,12 +27,14 @@ bool isNumber(const string &number)
     return true;
 }
 
-void limit(double &value, double min, double max)
+double getLimit(const double &value, double min, double max)
 {
-    if (value > max)
-        value = max;
+    double temp = value;
+    if (temp > max)
+        temp = max;
     else if (value < min)
-        value = min;
+        temp = min;
+    return temp;
 }
 
 string formatDouble(const double& value, int precision)
