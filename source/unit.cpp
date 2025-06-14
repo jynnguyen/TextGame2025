@@ -1,7 +1,7 @@
 #include "Unit.hpp"
 #include "Functions.hpp"
 
-Unit::Unit(int t, string n, BaseStats b, Energy e) : type(t), name(n), energy(e), stats(t, level, b)
+Unit::Unit(int t, string n, BaseStats b, Energy e) : type(t), name(n), energy(e),level(0) ,stats(t, b)
 {
     orb = Orb();
     update();
@@ -94,7 +94,8 @@ bool Unit::isEvaded(Unit &other)
     if (stats.isEvade(other.stats))
     {
         cout << " > " << name << " evaded the attack" << endl;
-        energy.current += energy.regen / 5;
+        energy.current += energy.regen * 0.2;
+        other.energy.current += other.energy.regen * 0.4;
         return true;
     }
     return false;
@@ -134,7 +135,7 @@ double Unit::attack(Unit &target, double scale, bool isUltimate, StatsCal::BaseT
         return 0;
     int energyRegen = (isUltimate) ? 0 : 1;
     double ultBonus = (isUltimate ? (1 + stats.mod.ultDmgBonus) : 1);
-    double dmg = dmgCal(target, scale, scaleOn) * getLimit(ultBonus,1,ultBonus);
+    double dmg = dmgCal(target, scale, scaleOn) * getLimit(ultBonus, 1, ultBonus);
     cout << " > " << name << " dealt " << dmg << "_dmg to " << target.name << endl;
     target.stats.base.hp -= dmg;
     energy.current += energy.regen * energyRegen;
@@ -178,7 +179,8 @@ double Unit::dotAttack(Unit &target, const Status &dot)
 double Unit::trueAttack(Unit &target, double scale, StatsCal::BaseType scaleOn)
 {
     stats.mod.penetration += 100, stats.mod.dmgBonus -= 100, stats.mod.ultDmgBonus -= 100, stats.hitRate.dmg += 100, stats.crit.rate -= 100;
-    cout << endl << name << " deals true damage to " << target.name << endl;
+    cout << endl
+         << name << " deals true damage to " << target.name << endl;
     double finalDmg = attack(target, scale, true, scaleOn);
     stats.mod.penetration -= 100, stats.mod.dmgBonus += 100, stats.mod.ultDmgBonus += 100, stats.hitRate.dmg -= 100, stats.crit.rate += 100;
     return finalDmg;
@@ -294,7 +296,7 @@ void Unit::ultimate(Unit &target)
         else if (id == 8)
         {
             cout << "Speed of Light";
-            stats.buffAgility(StatsCal::AgilityType::EVADE, 0.3, 2, name);
+            stats.buffAgility(StatsCal::AgilityType::EVADE, 0.4, 2, name);
             stats.mod.dmgBonus += 0.05;
         }
         else if (id == 9)
@@ -316,7 +318,7 @@ void Unit::ultimate(Unit &target)
         {
             cout << "Dragon Flame";
             stats.buffEffect(StatsCal::EffectType::DOT, 1, 99, name);
-            totalDmg += attack(target, 1.2, true);
+            totalDmg += attack(target, 1.5, true);
             applyDot(target, 3, 0.8);
         }
         else if (id == 12)
@@ -335,7 +337,9 @@ void Unit::ultimate(Unit &target)
         else if (id == 14)
         {
             cout << "Time malnipulation";
-            trueAttack(target, 3);
+            stats.agility.accuracy += 100;
+            trueAttack(target, 2.6);
+            stats.agility.accuracy -= 100;
             stats.buffEffect(StatsCal::EffectType::DMG, 1, 1, name, true);
         }
 
@@ -379,6 +383,13 @@ void Unit::ultimate(Unit &target)
             stats.buffBase(StatsCal::BaseType::ATK, stats.base.def, 5, name);
             stats.buffBase(StatsCal::BaseType::DEF, -stats.base.def, 5, name);
             stats.buffEffect(StatsCal::EffectType::DMG, 1, 1, name, true);
+        }
+        else if (id == 6)
+        {
+            cout << "I am invisible";
+            stats.base.atk *= 2;
+            stats.base.def *= 2;
+            stats.buffAgility(StatsCal::AgilityType::EVADE, 0.5, 99, name);
         }
         else if (id == 666)
         {

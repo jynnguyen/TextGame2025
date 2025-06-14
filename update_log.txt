@@ -19,3 +19,8 @@ June-13th-2025
 Units: Cipher and Regulus; Orbs: Nya and Time; Enemy: Undead.
 + New Mechanic: True Damage
 True Damage bypasses all beneficial or harmful effects, dealing direct damage to the target's HP.
++ Adding all units' initial stats
+All units now have base Evade Chance 1%
++ Mechanic Evade nerfs
+When evade successfully the attacker regen 40% of Energy Regen (before nerf is the attacker regen 0 energy), the defender regen 20% of Energy Regen
+Applying Dot damage can not be dodged

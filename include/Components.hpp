@@ -6,8 +6,9 @@ class Components
 {
 public:
     bool has = false;
-    virtual string info() = 0;
-    string formatDouble(const double& value, int precision = 2);
+    virtual string info() const = 0;
+    virtual void reset() = 0;
+    string formatDouble(const double& value, int precision = 2) const;
 };
 
 class BaseStats : public Components
@@ -18,7 +19,7 @@ public:
         def, maxDef;
     BaseStats(double h = 0, double a = 0, double d = 0) : hp(h), atk(a), def(d), base_hp(h), base_atk(a), base_def(d), maxHp(h), maxAtk(a), maxDef(d) {}
     void reset();
-    string info() override;
+    string info() const override;
     BaseStats multiply(double num) const;
     BaseStats operator+(const BaseStats &other) const;
     BaseStats &operator*=(double num);
@@ -40,8 +41,8 @@ public:
     Energy(double m) : max(m), base_max(m)
     {
     }
-    void reset();
-    string info() override;
+    void reset() override;
+    string info() const override;
 
 private:
     double base_regen = 25;
@@ -53,8 +54,8 @@ public:
     double rate = 0.05, dmg = 0.5;
     CritStats() = default;
     CritStats(double r, double d) : rate(r), dmg(d), base_rate(r), base_dmg(d) {}
-    void reset();
-    string info() override;
+    void reset() override;
+    string info() const override;
 
     CritStats &operator+=(const CritStats &other);
     CritStats &operator-=(const CritStats &other);
@@ -64,14 +65,15 @@ private:
     double base_rate = 0.05, base_dmg = 0.5;
 };
 
-class Status
+class Status : public Components
 {
 public:
     bool is;
     int duration;
     double scale;
     Status(bool i = false, int d = -1, double sc = 0) : is(i), duration(d), scale(sc) {}
-    void reset();
+    void reset() override;
+    string info() const override;
 };
 
 class Modifiers : public Components
@@ -86,7 +88,7 @@ public:
     Modifiers(double bon, double pen, double ultBon, double dotBon)
         : penetration(pen), dmgBonus(bon), ultDmgBonus(ultBon), dotDmgBonus(dotBon) {}
     void reset();
-    string info() override;
+    string info() const override;
     Modifiers &operator+=(const Modifiers &other);
     Modifiers &operator-=(const Modifiers &other);
     Modifiers &operator=(const Modifiers &other);
@@ -100,17 +102,17 @@ public:
     double dmg = 0;
     Effect(double dm = 0, double c = 0, double dt = 0) : dmg(dm), cc(c), dot(dt) {}
     Effect &operator+=(const Effect &other);
-    string info() override;
-    void reset();
+    string info() const override;
+    void reset() override;
 };
 
 class Agility : public Components
 {
 public:
-    double evade = 0;
+    double evade = 0.01;
     double accuracy = 0;
-    Agility(double e = 0, double ac = 0) : evade(e), accuracy(ac) {}
+    Agility(double e = 0.01, double ac = 0) : evade(e), accuracy(ac) {}
     Agility &operator+=(const Agility &other);
-    string info() override;
-    void reset();
+    string info() const override;
+    void reset() override;
 };

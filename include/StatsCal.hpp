@@ -19,7 +19,7 @@ public:
 class StatsCal
 {
 public:
-    StatsCal(int unitType, int level = 0, BaseStats b = {1, 1, 1}, CritStats cr = {0.05, 0.5});
+    StatsCal(int unitType, BaseStats b = {1, 1, 1}, CritStats cr = {0.05, 0.5});
 
     enum class BaseType
     {

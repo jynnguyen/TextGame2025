@@ -1,6 +1,6 @@
 #include "Components.hpp"
 
-string Components::formatDouble(const double &value, int precision)
+string Components::formatDouble(const double &value, int precision) const
 {
     ostringstream oss;
     oss << fixed << setprecision(precision) << value;
@@ -14,7 +14,7 @@ void BaseStats::reset()
     def = maxDef;
 }
 
-string BaseStats::info()
+string BaseStats::info() const
 {
     stringstream ss;
     ss << " - HP: " << formatDouble(hp) << " | ATK: " << formatDouble(atk) << " | DEF: " << formatDouble(def) << endl;
@@ -45,7 +45,7 @@ void Energy::reset()
     regen = base_regen;
 }
 
-string Energy::info()
+string Energy::info() const
 {
     stringstream ss;
     ss << " - Energy: " << formatDouble(current) << "/" << formatDouble(max) << endl;
@@ -58,7 +58,7 @@ void CritStats::reset()
     dmg = base_dmg;
 }
 
-string CritStats::info()
+string CritStats::info() const
 {
     stringstream ss;
     ss << " - Crit Rate: " << formatDouble(rate * 100) << "% | Crit Dmg: " << formatDouble(dmg * 100) << "%" << endl;
@@ -71,6 +71,11 @@ void Status::reset()
     scale = 0;
 }
 
+
+string Status::info() const {
+    return "";
+}
+
 void Modifiers::reset()
 {
     penetration = 0;
@@ -79,7 +84,7 @@ void Modifiers::reset()
     dotDmgBonus = 0;
 }
 
-string Modifiers::info()
+string Modifiers::info() const
 {
     stringstream ss;
     if (penetration > 1e-10 || ultDmgBonus > 1e-10 || dmgBonus > 1e-10 || dotDmgBonus > 1e-10)
@@ -194,7 +199,7 @@ Effect &Effect::operator+=(const Effect &other)
     return *this;
 }
 
-string Effect::info()
+string Effect::info() const
 {
     stringstream ss;
     if (cc > 1e-10)
@@ -222,7 +227,7 @@ Agility &Agility::operator+=(const Agility &other)
     return *this;
 }
 
-string Agility::info()
+string Agility::info() const
 {
     stringstream ss;
     if (evade > 1e-10 || accuracy > 1e-10)
@@ -238,6 +243,6 @@ string Agility::info()
 
 void Agility::reset()
 {
-    evade = 0;
+    evade = 0.01;
     accuracy = 0;
 }

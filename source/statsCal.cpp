@@ -1,12 +1,11 @@
 #include "StatsCal.hpp"
 
-StatsCal::StatsCal(int unitType, int level, BaseStats b, CritStats cr) : base(b), crit(cr)
+StatsCal::StatsCal(int unitType, BaseStats b, CritStats cr) : base(b), crit(cr)
 {
     resistance = Effect();
     hitRate = Effect();
     agility = Agility();
     baseCoeff = (unitType == 0) ? 1.05 : 1.08;
-    update(level);
 }
 
 void StatsCal::update(int level)
