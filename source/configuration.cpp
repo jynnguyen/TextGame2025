@@ -62,10 +62,6 @@ void Configuration::loadUnit(const string &str, string type)
     Unit u(typeInNumber, name, {hp, atk, def}, energy);
     int size = (type == "unit") ? units.size() : enemies.size();
     u.setID(size);
-    if (size % 10 == 0 && size != 0)
-        u.setRarity("UR");
-    else if (size % 5 == 0 && size != 0)
-        u.setRarity("SSR");
     if (type == "unit")
         units.emplace_back(u);
     else if (type == "enemy")
@@ -88,10 +84,10 @@ void Configuration::loadOrb(const string &str)
                          &hp, &atk, &def,
                          &cr, &cd,
                          &dmgbonus, &pen, &ultbonus, &dotbonus,
-                         &res_cc, &res_dot, &res_dmg,
-                         &hr_cc, &hr_dot, &hr_dmg,
+                         &res_dmg, &res_cc, &res_dot,
+                         &hr_dmg, &hr_cc, &hr_dot,
                          &evade, &accuracy);
-    Orb orb(n, BaseStats(hp / 100, atk / 100, def / 100), CritStats(cr / 100, cd / 100), Modifiers(dmgbonus / 100, pen / 100, ultbonus / 100, dotbonus / 100), Effect(res_cc / 100, res_dot / 100, res_dmg / 100), Effect(hr_cc / 100, hr_dot / 100, hr_dmg / 100), Agility(evade / 100, accuracy / 100));
+    Orb orb(n, BaseStats(hp / 100, atk / 100, def / 100), CritStats(cr / 100, cd / 100), Modifiers(dmgbonus / 100, pen / 100, ultbonus / 100, dotbonus / 100), Effect(res_dmg / 100, res_cc / 100, res_dot / 100), Effect(hr_dmg / 100, hr_cc / 100, hr_dot / 100), Agility(evade / 100, accuracy / 100));
     int size = orbs.size();
     orb.setID(size);
     if (size % 10 == 0 && size != 0)

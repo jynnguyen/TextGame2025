@@ -14,9 +14,9 @@ Damage-over-Time (DoT) effects now depend on the caster's DoT Hit Rate, meaning 
 More comprehensive stats and details are now displayed, giving players deeper insights into their team composition and strengths.
 
 ---------------
-June-13th-2025
-+ Adding 2 new Units, 2 new Orbs and 1 new Enemy
-Units: Cipher and Regulus; Orbs: Nya and Time; Enemy: Undead.
+June-14th-2025
++ Adding 2 new Units, 2 new Orbs and 2 new Enemies
+Units: Cipher and Regulus; Orbs: Nya and Time; Enemy: Undead and Evil Soul.
 + New Mechanic: True Damage
 True Damage bypasses all beneficial or harmful effects, dealing direct damage to the target's HP.
 + Adding all units' initial stats
@@ -24,3 +24,12 @@ All units now have base Evade Chance 1%
 + Mechanic Evade nerfs
 When evade successfully the attacker regen 40% of Energy Regen (before nerf is the attacker regen 0 energy), the defender regen 20% of Energy Regen
 Applying Dot damage can not be dodged
+
+---------------
+June-15th-2025
++ Adding 1 new Unit, 1 new Orb
+Units: Yunlin; Orbs: Resilient
++ New mechanic Counter Attack
+Counter Attack is to strike back right after being attacked
++ Delete Rarity System
+Now, Units have no rarity so you have to try Units yourself to know if they are good or not

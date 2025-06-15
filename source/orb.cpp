@@ -17,11 +17,10 @@ string Orb::info()
     ss << base.info();
     ss << crit.info();
     ss << mod.info();
-    ss << resistance.info();
     if (!resistance.info().empty())
-        ss << " - Resistance: " << hitRate.info();
+        ss << " - Resistance: " << resistance.info();
     if (!hitRate.info().empty())
-        ss << " - Hit Rate: " << resistance.info();
+        ss << " - Hit Rate: " << hitRate.info();
     ss << agility.info();
     return ss.str();
 }

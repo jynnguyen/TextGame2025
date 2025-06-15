@@ -50,7 +50,7 @@ double Raid::boss()
         takeAction(enemy, onDeploy);
         display();
         round++;
-    } while (onDeploy.isAlive() && enemy.isAlive() && round < 25);
+    } while (onDeploy.isAlive() && enemy.isAlive() && round < 30);
     cout << " Total dmg dealt (based on Enemy's max and current HP): " << enemy.stats.getHpLost() << endl;
     return enemy.stats.getHpLost();
 }
@@ -59,14 +59,29 @@ void Raid::takeAction(Unit &attacker, Unit &target)
 {
     attacker.stats.updateBuffs();
     cout << attacker.getName() << "'s turn: " << endl;
-    if (attacker.updateBadStatus(target) || !attacker.isAlive() || !target.isAlive())
+    double dmgDealt = 0;
+    if (attacker.updatePreStatus(target))
+    {
+        this_thread::sleep_for(chrono::milliseconds(int(1000 / speed)));
+        return;
+    }
+    if (!attacker.isAlive())
+    {
+        cout << attacker.getName() << " is dead !" << endl;
+        return;
+    }
+    if (!target.isAlive())
         return;
     this_thread::sleep_for(chrono::milliseconds(int(1000 / speed)));
     if (attacker.isEnoughEnergy())
-        attacker.ultimate(target);
+        dmgDealt += attacker.ultimate(target);
     else
-        attacker.attack(target);
-    this_thread::sleep_for(chrono::milliseconds(int(1500 / speed)));
+        dmgDealt += attacker.attack(target);
+    if (dmgDealt > 1e-10){
+        this_thread::sleep_for(chrono::milliseconds(int(1000 / speed)));
+        dmgDealt += target.isCounter(attacker);
+    }
+    this_thread::sleep_for(chrono::milliseconds(int(1000 / speed)));
 }
 
 void Raid::displayDetail()

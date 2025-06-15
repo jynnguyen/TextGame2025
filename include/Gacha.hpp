@@ -8,11 +8,11 @@ template <typename T>
 class Gacha
 {
 public:
-    Gacha(int pR = 10, double rSr = 0.1, double rSsr = 0.06, double rUr = 0.03) : priceInRuby(pR), rateSr(rSr), rateSsr(rSsr), rateUr(rUr)
+    Gacha(int pR = 10, double r = 0.1) : priceInRuby(pR), rate(r)
     {
         if (is_same<T, Orb>::value)
         {
-            rateSr /= 2, rateSsr /= 2, rateUr /= 2;
+            rate /= 2;
             banner = "Orb";
         }
     };
@@ -24,28 +24,11 @@ public:
             return;
         while (pulls > 0)
         {
-            int chance = rngRate(1 - rateSr - rateSsr - rateUr, rateSr, rateSsr, rateUr);
-            int size = vecs.size()-1;
-            int SSR = 5, UR = 10;
+            int chance = rngRate(1 - rate, rate);
+            int size = vecs.size() - 1;
             if (chance == 1)
             {
                 int idx = rng(0, size);
-                while (idx % SSR == 0 || idx % UR == 0)
-                    idx = rng(0, size);
-                ruby += obtain(vecs, idx);
-            }
-            else if (chance == 2 && size >= 10)
-            {
-                int idx = rng(0, size);
-                while (idx % SSR != 0 && idx != 0)
-                    idx = rng(0, size);
-                ruby += obtain(vecs, idx);
-            }
-            else if (chance == 3 && size >= 15)
-            {
-                int idx = rng(0, size);
-                while (idx % UR != 0 && idx != 0)
-                    idx = rng(0, size);
                 ruby += obtain(vecs, idx);
             }
             else
@@ -68,13 +51,13 @@ public:
     string getRate()
     {
         stringstream ss;
-        ss<<"SR = "<<rateSr*100<<"% | SSR = "<<rateSsr*100<<"% | UR = "<<rateUr*100<<"%"<<endl;
+        ss << "Rate = " << rate * 100 << "%" << endl;
         return ss.str();
     }
 
 private:
     int priceInRuby;
-    double rateSr, rateSsr, rateUr;
+    double rate;
     string banner = "Unit";
     int howManyPulls()
     {
@@ -92,7 +75,7 @@ private:
     {
         if (idx < 0 || idx >= vecs.size())
             return 0;
-        cout << " > Congrats ! You get a " << vecs[idx].getRarity() << " " << banner << ", [" << vecs[idx].getName() << "]";
+        cout << " > Congrats ! You get a " << banner << ", [" << vecs[idx].getName() << "]";
         if (vecs[idx].getOwned())
         {
             int returnRuby = priceInRuby * 2;

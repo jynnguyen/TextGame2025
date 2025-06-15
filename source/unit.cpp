@@ -1,7 +1,7 @@
 #include "Unit.hpp"
 #include "Functions.hpp"
 
-Unit::Unit(int t, string n, BaseStats b, Energy e) : type(t), name(n), energy(e),level(0) ,stats(t, b)
+Unit::Unit(int t, string n, BaseStats b, Energy e) : type(t), name(n), energy(e), level(0), stats(t, b)
 {
     orb = Orb();
     update();
@@ -10,7 +10,7 @@ Unit::Unit(int t, string n, BaseStats b, Energy e) : type(t), name(n), energy(e)
 string Unit::info()
 {
     stringstream ss;
-    ss << " " << string(2, '*') << name << " (Rarity: " << rarity << " - Owned: " << (owned ? "Yes" : "No");
+    ss << " " << string(2, '*') << name << " (Energy Cap: " << energy.max << " - Owned: " << (owned ? "Yes" : "No");
     ss << ")" << string(2, '*') << endl;
     ss << stats.base.info();
     ss << stats.crit.info();
@@ -113,16 +113,6 @@ void Unit::heal(double amount)
     stats.base.hp = (stats.base.hp > stats.base.maxHp) ? stats.base.maxHp : stats.base.hp;
 }
 
-void Unit::setRarity(string r)
-{
-    rarity = r;
-}
-
-string Unit::getRarity()
-{
-    return rarity;
-}
-
 double Unit::dmgCal(const Unit &target, double scale, StatsCal::BaseType scaleOn)
 {
     double finalDmg = stats.getFinalDmg(scaleOn) * scale * target.stats.getFinalDef(this->stats);
@@ -153,8 +143,7 @@ void Unit::applyCC(Unit &target, int duration)
         return;
     }
     cout << " > " << name << " stuns " << target.name << " for " << duration << " turns" << endl;
-    target.crowdControl.is = true;
-    target.crowdControl.duration = duration;
+    target.crowdControl = Status(true, duration);
 }
 
 void Unit::applyDot(Unit &target, int duration, double scale)
@@ -168,11 +157,17 @@ void Unit::applyDot(Unit &target, int duration, double scale)
     target.dots.emplace_back(Status(true, duration, scale));
 }
 
+void Unit::applyCounter(int duration, double scale)
+{
+    cout << " > " << name << " enables Counter Attack Mode" << endl;
+    counterAtk = Status(true, duration, scale);
+}
+
 double Unit::dotAttack(Unit &target, const Status &dot)
 {
     double dmg = stats.getFinalDmg(StatsCal::BaseType::ATK, false) * dot.scale * (1 + stats.mod.dotDmgBonus) * target.stats.getFinalDef(this->stats);
     target.stats.base.hp -= dmg;
-    cout << " > " << target.name << " receives " << dmg << " DOT dmg from " << name << endl;
+    cout << " > " << target.name << " receives " << dmg << "_DOT dmg from " << name << endl;
     return dmg;
 }
 
@@ -184,6 +179,16 @@ double Unit::trueAttack(Unit &target, double scale, StatsCal::BaseType scaleOn)
     double finalDmg = attack(target, scale, true, scaleOn);
     stats.mod.penetration -= 100, stats.mod.dmgBonus += 100, stats.mod.ultDmgBonus += 100, stats.hitRate.dmg -= 100, stats.crit.rate += 100;
     return finalDmg;
+}
+
+double Unit::counterAttack(Unit &target, double scale, StatsCal::BaseType scaleOn)
+{
+    if (!isAlive() || target.isEvaded(*this))
+        return 0;
+    double dmg = dmgCal(target, scale, scaleOn);
+    cout << " > " << name << " strikes back, dealing " << dmg << "_dmg to " << target.name << endl;
+    target.stats.base.hp -= dmg;
+    return dmg;
 }
 
 bool Unit::isCced()
@@ -207,25 +212,29 @@ bool Unit::isDotted(Unit &dotDmgDealer)
     return isAlive();
 }
 
-bool Unit::updateBadStatus(Unit &dotDmgDealer)
+double Unit::isCounter(Unit &target)
 {
-    if (!isDotted(dotDmgDealer))
-    {
-        cout << " > " << name << " is dead !" << endl;
-        this_thread::sleep_for(chrono::milliseconds(750));
-        return true;
-    }
+    double dmg = 0;
+    if (counterAtk.duration > 0 && !crowdControl.is)
+        dmg+=counterAttack(target, counterAtk.scale);
+    else
+        counterAtk.is = false;
+    counterAtk.duration--;
+    return dmg;
+}
 
+bool Unit::updatePreStatus(Unit &dotDmgDealer)
+{
+    isDotted(dotDmgDealer);
     if (isCced())
     {
         cout << " > " << name << " is unable to take action !" << endl;
-        this_thread::sleep_for(chrono::milliseconds(750));
         return true;
     }
     return false;
 }
 
-void Unit::ultimate(Unit &target)
+double Unit::ultimate(Unit &target)
 {
     cout << " > " << name << " activates *ULTIMATE*" << endl;
     double max_hp = stats.base.maxHp, max_atk = stats.base.maxAtk, max_def = stats.base.maxDef;
@@ -297,6 +306,7 @@ void Unit::ultimate(Unit &target)
         {
             cout << "Speed of Light";
             stats.buffAgility(StatsCal::AgilityType::EVADE, 0.4, 2, name);
+            stats.agility.evade += 0.01;
             stats.mod.dmgBonus += 0.05;
         }
         else if (id == 9)
@@ -308,11 +318,11 @@ void Unit::ultimate(Unit &target)
         else if (id == 10)
         {
             cout << "Time to say bye\n  BOOM.";
-            stats.buffEffect(StatsCal::EffectType::DOT, 1, 99, name);
-            applyDot(target, 10, 0.3);
-            stats.mod.dmgBonus += 0.5;
+            stats.buffEffect(StatsCal::EffectType::DOT, 1.2, 99, name);
+            applyDot(target, 10, 0.25);
+            stats.mod.dmgBonus += 0.6;
             target.isDotted(*this);
-            stats.mod.dmgBonus -= 0.5;
+            stats.mod.dmgBonus -= 0.6;
         }
         else if (id == 11)
         {
@@ -338,9 +348,15 @@ void Unit::ultimate(Unit &target)
         {
             cout << "Time malnipulation";
             stats.agility.accuracy += 100;
-            trueAttack(target, 2.6);
+            totalDmg += trueAttack(target, 2.5);
             stats.agility.accuracy -= 100;
             stats.buffEffect(StatsCal::EffectType::DMG, 1, 1, name, true);
+        }
+        else if (id == 15)
+        {
+            cout << "Self strengthens";
+            applyCounter(2, 1);
+            stats.buffEffect(StatsCal::EffectType::DMG, 0.2, 2, name, true);
         }
 
         break;
@@ -373,8 +389,8 @@ void Unit::ultimate(Unit &target)
         else if (id == 4)
         {
             cout << "Return from death";
-            max_hp *= 1.25, max_atk *= 1.25, max_def *= 1.25;
-            stats.base.hp = max_hp, stats.base.atk = max_atk, stats.base.def = max_def;
+            stats.base.maxHp *= 1.25, stats.base.maxAtk *= 1.25, stats.base.maxDef *= 1.25;
+            heal(stats.base.maxHp - stats.base.hp), stats.base.atk = stats.base.maxAtk, stats.base.def = stats.base.maxDef;
             energy.regen = 0;
         }
         else if (id == 5)
@@ -389,7 +405,7 @@ void Unit::ultimate(Unit &target)
             cout << "I am invisible";
             stats.base.atk *= 2;
             stats.base.def *= 2;
-            stats.buffAgility(StatsCal::AgilityType::EVADE, 0.5, 99, name);
+            stats.buffAgility(StatsCal::AgilityType::EVADE, 0.6, 99, name);
         }
         else if (id == 666)
         {
@@ -400,10 +416,10 @@ void Unit::ultimate(Unit &target)
         break;
     }
     if (totalDmg > 0)
-        cout << endl
-             << " > [Total damage dealt: " << totalDmg << "]";
+        cout << " > [Total damage dealt: " << totalDmg << "]";
     cout << endl;
     energy.current = 0;
+    return totalDmg;
 }
 
 void Unit::setLevel(int lv)

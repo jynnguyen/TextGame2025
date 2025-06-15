@@ -13,22 +13,27 @@ public:
     StatsCal stats;
     Energy energy;
     Status crowdControl;
+    Status counterAtk;
     Orb orb;
 
     vector<Status> dots;
+
 
     Unit(int t, string n = "", BaseStats b = {1, 1, 1}, Energy e = 1000);
 
     void applyDot(Unit &target, int duration, double scale = 0);
     void applyCC(Unit &target, int duration);
+    void applyCounter(int duration,double scale = 0);
     bool isDotted(Unit &target);
     bool isCced();
-    bool updateBadStatus(Unit &dotDmgDealer);
+    double isCounter(Unit& target);
+    bool updatePreStatus(Unit &dotDmgDealer);
 
     double attack(Unit &target, double scale = 1, bool isUltimate = false, StatsCal::BaseType scaleOn = StatsCal::BaseType::ATK);
-    void ultimate(Unit &target);
+    double ultimate(Unit &target);
     double dotAttack(Unit &dotDmgDealer, const Status &dot);
     double trueAttack(Unit &target, double scale = 1, StatsCal::BaseType scaleOn = StatsCal::BaseType::ATK);
+    double counterAttack(Unit &target, double scale = 1, StatsCal::BaseType scaleOn = StatsCal::BaseType::ATK);
 
     string info();
     void displayStats();
@@ -48,13 +53,10 @@ public:
     bool isEvaded(Unit &other);
 
     void heal(double amount);
-    void setRarity(string r);
-    string getRarity();
 
     void update();
 
 private:
-    string rarity = "SR";
     string name = "No";
     string description = "No information";
     bool owned = false;
